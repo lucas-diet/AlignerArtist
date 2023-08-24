@@ -1,11 +1,11 @@
 
 class Sequence():
     
-    def __init__(self, type, sequence):
+    def __init__(self, type,sequence):
         self.type = type
         self.sequence = sequence
 
-    def checkSequence(self, type, sequence):
+    def checkSequence(self, type,sequence):
         nts = ['a','c','g','t']
         aas = ['a','c','h','m','t','r','q','i','f','w','n','e','l','p','y','d','g','k','s','v']
 
@@ -34,10 +34,9 @@ class Sequence():
     def getSequencetype(self):
         return self.type
 
-    def setSequence(self):
-        sequence = self.sequence
+    def setSequence(self, sequence):
         type = self.type
-        chekedSequence = self.checkSequence(type, sequence)
+        chekedSequence = self.checkSequence(type,sequence)
         if chekedSequence == 'error':
             return print('error')
         else:
