@@ -79,14 +79,3 @@ class Fasta():
             else:
                 print()
                 count = 0
-    
-
-h = '>jj'
-s = 'acgaaaaaagaggagagagaggagagaagagagagaggagagggagagagagagaggagagagagaggagaggagagagagaggagagagagaggagagagagaggagagagaggaag'
-a = 'nt'
-
-fasta = Fasta(a,h,s)
-fasta.setHeader(h)
-fasta.setSequence(a,s)
-
-fasta.printFasta(fasta)
