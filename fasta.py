@@ -34,7 +34,8 @@ class Fasta():
                     return sequence
        
     def setHeader(self, header):
-        self.header = header
+        checkedHeader = self.checkHeader(header)
+        self.header = checkedHeader
     
     def getHeader(self):
         return self.header
