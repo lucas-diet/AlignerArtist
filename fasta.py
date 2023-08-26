@@ -1,7 +1,7 @@
 
 class Fasta():
 
-    def __init__(self, type,header,sequence):
+    def __init__(self, type='',header='',sequence=''):
         self.type = type
         self.header = header
         self.sequence = sequence
@@ -46,7 +46,7 @@ class Fasta():
         elif type == 'aa':
             self.type = type
     
-    def getSequencetype(self):
+    def getSequenceType(self):
         return self.type
     
     def setSequence(self, type,sequence):
