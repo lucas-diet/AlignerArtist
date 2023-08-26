@@ -98,24 +98,24 @@ class NeedlemannWunsch():
         listOfCosts = []
         optAls = []
         for nt in range(1,len(alignment),2):
-            seq1 = alignment[nt-1]
-            seq2 = alignment[nt]
-            for i in range(0,len(seq1)):
-                for j in range(i,len(seq2)):
-                    if seq1[i] == seq2[j]:
+            s1 = alignment[nt-1]
+            s2 = alignment[nt]
+            for i in range(0,len(s1)):
+                for j in range(i,len(s2)):
+                    if s1[i] == s2[j]:
                         cost += self.penalty['match']
                         break
-                    elif seq1[i] != seq2[j]:
-                        if seq1[i] == '-':
+                    elif s1[i] != s2[j]:
+                        if s1[i] == '-':
                             cost += self.penalty['gap']
                             break
-                        elif seq2[j] == '-':
+                        elif s2[j] == '-':
                             cost += self.penalty['gap']
                             break
                         else:
                             cost += self.penalty['mismatch']
                             break
-        listOfCosts.append([cost,seq1,seq2])
+        listOfCosts.append([cost,s1,s2])
         listOfCosts_al = [val for sublist in listOfCosts for val in sublist]
         for i in range(0,len(listOfCosts_al)):
             if listOfCosts_al[i] == min_cost:
