@@ -1,4 +1,5 @@
-from fasta import Fasta as fasta
+
+from fasta import Fasta as Fasta
 from blosum62 import blosum62
 from collections import deque
 
@@ -87,7 +88,7 @@ class NeedlemannWunsch():
         alignments = [val for sublist in al for val in sublist]
         return alignments
 
-    def optAlignments(self,min_cost,listOfAlignments):
+    def optAlignments(self, min_cost,listOfAlignments):
         '''
 		Durchläuft die Liste aller möglichen Alignments und berechnet die Kosten der Alignmets.
 		Dann wird eine Liste erzeugt mit Kosten und den zugehörigen Sequenzen.
@@ -115,8 +116,10 @@ class NeedlemannWunsch():
                         else:
                             cost += self.penalty['mismatch']
                             break
+
         listOfCosts.append([cost,s1,s2])
         listOfCosts_al = [val for sublist in listOfCosts for val in sublist]
+
         for i in range(0,len(listOfCosts_al)):
             if listOfCosts_al[i] == min_cost:
                 optAls.append(listOfCosts_al[i+1])
@@ -124,22 +127,44 @@ class NeedlemannWunsch():
         
         return optAls
     
-    def printAlignments(self,opts):
+    def printAlignments(self, opts):
         if len(opts) > 0:
             for seq in opts:
                 print()
                 for nt in seq:
                     print(nt,end='')
             print()
-                
-s1 = 'agtt'
-s2 = 'agta'
+
+
+s1 = 'acgt'
+t = 'nt'
+h1 = 'h1'
+
+f1 = Fasta()
+f1.setHeader(h1)
+f1.setSequenceType(t)
+f1.setSequence(t,s1)
+f1.printFasta(f1)
+
+
+s2 = 'acggg'
+h2 = 'h1'
+
+f2 = Fasta()
+f2.setHeader(h2)
+f2.setSequenceType(t)
+f2.setSequence(t,s2)
+f1.printFasta(f2)
 
 nw = NeedlemannWunsch()
-dp = nw.calcualteDP('nt',s1,s2)
+dp = nw.calcualteDP(t, f1.getSequence(),f2.getSequence())
+
+
+nw = NeedlemannWunsch()
+dp = nw.calcualteDP(t,f1.getSequence(),f2.getSequence())
 
 for i in range(0,len(dp)):
-    print(dp[i])
+   print(dp[i])
 
 listOfCosts = nw.getMinimallistOfCosts(dp)
 print(listOfCosts)

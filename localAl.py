@@ -1,3 +1,4 @@
+
 from fasta import Fasta as fasta
 from blosum62 import blosum62
 
