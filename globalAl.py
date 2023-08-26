@@ -15,7 +15,7 @@ class NeedlemannWunsch():
     def getPenalty(self):
         return self.penalty
     
-    def costs(self, c1,c2):
+    def listOfCosts(self, c1,c2):
         if c1 != c2:
             if c1 == '-' or c2 == '-':
                 return self.penalty['gap']
@@ -38,22 +38,22 @@ class NeedlemannWunsch():
         if type == 'nt':
             for i in range(1,len(s1)+1):
                 for j in range(1,len(s2)+1):
-                    diag = dp[i-1][j-1] + self.costs(s1[i-1],s2[j-1])
-                    hori = dp[i][j-1] + self.costs('-',s2[j-1])
-                    vert = dp[i-1][j] + self.costs(s1[i-1],'-')
+                    diag = dp[i-1][j-1] + self.listOfCosts(s1[i-1],s2[j-1])
+                    hori = dp[i][j-1] + self.listOfCosts('-',s2[j-1])
+                    vert = dp[i-1][j] + self.listOfCosts(s1[i-1],'-')
                     dp[i][j] = min(diag,hori,vert)
 
         elif type == 'aa':
             for i in range(1,len(s1)+1):
                 for j in range(1,len(s2)+1):
                     diag = dp[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]
-                    hori = dp[i][j-1] + self.costs('-',s2[j-1])
-                    vert = dp[i-1][j] + self.costs(s1[i-1],'-')
+                    hori = dp[i][j-1] + self.listOfCosts('-',s2[j-1])
+                    vert = dp[i-1][j] + self.listOfCosts(s1[i-1],'-')
                     dp[i][j] = min(diag,hori,vert)
             
         return dp
     
-    def getMinimalCosts(self, dp_matrix):
+    def getMinimallistOfCosts(self, dp_matrix):
         return dp_matrix[-1][-1]
     
     def allAlignments(self, s1,s2):
@@ -95,7 +95,7 @@ class NeedlemannWunsch():
 		'''
         alignment = listOfAlignments
         cost = 0
-        costs = []
+        listOfCosts = []
         optAls = []
         for nt in range(1,len(alignment),2):
             seq1 = alignment[nt-1]
@@ -115,12 +115,12 @@ class NeedlemannWunsch():
                         else:
                             cost += self.penalty['mismatch']
                             break
-        costs.append([cost,seq1,seq2])
-        costs_al = [val for sublist in costs for val in sublist]
-        for i in range(0,len(costs_al)):
-            if costs_al[i] == min_cost:
-                optAls.append(costs_al[i+1])
-                optAls.append(costs_al[i+2])
+        listOfCosts.append([cost,seq1,seq2])
+        listOfCosts_al = [val for sublist in listOfCosts for val in sublist]
+        for i in range(0,len(listOfCosts_al)):
+            if listOfCosts_al[i] == min_cost:
+                optAls.append(listOfCosts_al[i+1])
+                optAls.append(listOfCosts_al[i+2])
         
         return optAls
     
@@ -132,21 +132,21 @@ class NeedlemannWunsch():
                     print(nt,end='')
             print()
                 
-s1 = 'agtaaa'
+s1 = 'agtt'
 s2 = 'agta'
 
 nw = NeedlemannWunsch()
 dp = nw.calcualteDP('nt',s1,s2)
 
-#for i in range(0,len(dp)):
-#    print(dp[i])
+for i in range(0,len(dp)):
+    print(dp[i])
 
-costs = nw.getMinimalCosts(dp)
-print(costs)
+listOfCosts = nw.getMinimallistOfCosts(dp)
+print(listOfCosts)
 
 als = nw.allAlignments(s1,s2)
 
 for al in als:
     alignments = nw.buildAlignments(s1,s2,al)
-    opt = nw.optAlignments(costs,alignments)
+    opt = nw.optAlignments(listOfCosts,alignments)
     nw.printAlignments(opt)
