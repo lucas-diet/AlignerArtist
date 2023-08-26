@@ -51,7 +51,10 @@ class SmithWaterman():
                     dp[i][j] = max(0,diag,hori,vert)
             
         return dp
-    
+
+    def getMaimalSimilarities(self, dp_matrix):
+        pass
+        
 s1 = 'agt'
 s2 = 'agta'
 
