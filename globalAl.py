@@ -21,15 +21,6 @@ class NeedlemannWunsch():
                 return self.penalty['mismatch']
         else:
             return self.penalty['match']
-        
-    def diagonal_nt(self,nt1,nt2,pt):
-        if nt1 == nt2:
-            return pt['match']
-        else:
-            return pt['mismatch']
-		
-    def diagonal_aa(self,aa1,aa2,pt):
-        return pt[aa1][aa2]
     
     def initDP(self, s1,s2):
         dp = [[0 for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
