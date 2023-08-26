@@ -3,7 +3,7 @@ from blosum62 import blosum62
 
 class NeedlemannWunsch():
 
-    def __init__(self,s1='', s2=''):
+    def __init__(self, s1='', s2=''):
         self.s1 = s1
         self.s2 = s2
         self.penalty = {'match':0, 'mismatch':1, 'gap':1}
