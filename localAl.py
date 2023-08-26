@@ -1,5 +1,5 @@
 
-from fasta import Fasta as fasta
+from fasta import Fasta as Fasta
 from blosum62 import blosum62
 
 class SmithWaterman():
@@ -56,10 +56,27 @@ class SmithWaterman():
     def getMaimalSimilarities(self, dp_matrix):
         pass
         
-s1 = 'agt'
-s2 = 'agta'
+s1 = 'acgt'
+t = 'nt'
+h1 = 'h1'
 
-dp = SmithWaterman().calcualteDP('aa',s1,s2)
+f1 = Fasta()
+f1.setHeader(h1)
+f1.setSequenceType(t)
+f1.setSequence(t,s1)
+f1.printFasta(f1)
+
+
+s2 = 'acggg'
+h2 = 'h2'
+
+f2 = Fasta()
+f2.setHeader(h2)
+f2.setSequenceType(t)
+f2.setSequence(t,s2)
+f1.printFasta(f2)
+
+dp = SmithWaterman().calcualteDP('aa',f1.getSequence(),f2.getSequence())
 
 for i in range(0,len(dp)):
     print(dp[i])

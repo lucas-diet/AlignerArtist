@@ -148,7 +148,7 @@ f1.printFasta(f1)
 
 
 s2 = 'acggg'
-h2 = 'h1'
+h2 = 'h2'
 
 f2 = Fasta()
 f2.setHeader(h2)
