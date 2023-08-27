@@ -54,9 +54,18 @@ class SmithWaterman():
         return dp
 
     def getMaximalSimilarities(self, dp_matrix):
-        pass
-        
-s1 = 'acgt'
+        score = row = col = 0
+        max_similaritie = [[score, row, col]]
+        for i in range(0,len(dp_matrix)):
+            for j in range(0,len(dp_matrix[0])):
+                if dp_matrix[i][j] > score:
+                    score = dp_matrix[i][j]
+                    row = i
+                    col = j
+                    max_similaritie = [score,row,col]
+                    
+        return max_similaritie
+s1 = 'accgt'
 t = 'aa'
 h1 = 'h1'
 
@@ -67,7 +76,7 @@ f1.setSequence(t,s1)
 f1.printFasta(f1)
 
 
-s2 = 'acggg'
+s2 = 'cgta'
 h2 = 'h2'
 
 f2 = Fasta()
@@ -76,7 +85,10 @@ f2.setSequenceType(t)
 f2.setSequence(t,s2)
 f1.printFasta(f2)
 
-dp = SmithWaterman().calcualteDP(t,f1.getSequence(),f2.getSequence())
+sw = SmithWaterman()
+dp = sw.calcualteDP(t,f1.getSequence(),f2.getSequence())
 
 for i in range(0,len(dp)):
     print(dp[i])
+
+print(sw.getMaximalSimilarities(dp))
