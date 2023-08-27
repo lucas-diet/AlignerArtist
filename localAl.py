@@ -67,14 +67,13 @@ class SmithWaterman():
         
         max_similarities = []
         for i in range(0,len(tmp_max)):
-            for j in range(0,len(tmp_max[i])):
-                if score == tmp_max[i][j]:
-                    max_similarities.append(tmp_max[i])
+            if score == tmp_max[i][0]:
+                max_similarities.append(tmp_max[i])
                              
         return max_similarities
     
 s1 = 'accgg'
-t = 'aa'
+t = 'nt'
 h1 = 'h1'
 
 f1 = Fasta()
