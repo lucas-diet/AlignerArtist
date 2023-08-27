@@ -16,13 +16,13 @@ class SmithWaterman():
         return self.penalty
     
     def similarities(self, c1,c2):
-        if c1 != c2:
-            if c1 == '-' or c2 == '-':
-                return self.penalty['gap']
-            elif c1 != '-' or c2 != '-':
-                return self.penalty['mismatch']
-        else:
+        if c1 == c2:
             return self.penalty['match']
+        elif c1 != c2:
+            if c1 != '-' and c2 != '-':
+                return self.penalty['mismatch']
+            else:
+                return self.penalty['gap']
     
     def initDP(self, s1,s2):
         dp = [[0 for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
@@ -42,7 +42,7 @@ class SmithWaterman():
                     hori = dp[i][j-1] + self.similarities('-',s2[j-1])
                     vert = dp[i-1][j] + self.similarities(s1[i-1],'-')
                     dp[i][j] = max(0,diag,hori,vert)
-
+              
         elif type == 'aa':
             for i in range(1,len(s1)+1):
                 for j in range(1,len(s2)+1):
@@ -50,14 +50,14 @@ class SmithWaterman():
                     hori = dp[i][j-1] + self.similarities('-',s2[j-1])
                     vert = dp[i-1][j] + self.similarities(s1[i-1],'-')
                     dp[i][j] = max(0,diag,hori,vert)
-            
+ 
         return dp
 
-    def getMaimalSimilarities(self, dp_matrix):
+    def getMaximalSimilarities(self, dp_matrix):
         pass
         
 s1 = 'acgt'
-t = 'nt'
+t = 'aa'
 h1 = 'h1'
 
 f1 = Fasta()
@@ -76,7 +76,7 @@ f2.setSequenceType(t)
 f2.setSequence(t,s2)
 f1.printFasta(f2)
 
-dp = SmithWaterman().calcualteDP('aa',f1.getSequence(),f2.getSequence())
+dp = SmithWaterman().calcualteDP(t,f1.getSequence(),f2.getSequence())
 
 for i in range(0,len(dp)):
     print(dp[i])

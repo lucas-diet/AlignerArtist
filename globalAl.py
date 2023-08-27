@@ -54,7 +54,7 @@ class NeedlemannWunsch():
             
         return dp
     
-    def getMinimallistOfCosts(self, dp_matrix):
+    def getMinimalCosts(self, dp_matrix):
         return dp_matrix[-1][-1]
     
     def allAlignments(self, s1,s2):
@@ -135,7 +135,7 @@ class NeedlemannWunsch():
                     print(nt,end='')
             print()
 
-
+'''
 s1 = 'acgt'
 t = 'nt'
 h1 = 'h1'
@@ -166,7 +166,7 @@ dp = nw.calcualteDP(t,f1.getSequence(),f2.getSequence())
 for i in range(0,len(dp)):
    print(dp[i])
 
-listOfCosts = nw.getMinimallistOfCosts(dp)
+listOfCosts = nw.getMinimalCosts(dp)
 print(listOfCosts)
 
 als = nw.allAlignments(s1,s2)
@@ -175,3 +175,4 @@ for al in als:
     alignments = nw.buildAlignments(s1,s2,al)
     opt = nw.optAlignments(listOfCosts,alignments)
     nw.printAlignments(opt)
+ '''
