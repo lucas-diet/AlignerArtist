@@ -30,7 +30,6 @@ class GuiApp(tk.Tk):
 
         self.button = ttk.Button(self, text='Apply')
         self.button.place(x=10,y=150)
-        print('t')
 
 if __name__ == '__main__':
     app = GuiApp()
