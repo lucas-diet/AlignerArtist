@@ -7,13 +7,13 @@ from blosum62 import blosum62
 from globalAl import NeedlemannWunsch as nw
 from localAl import SmithWaterman as sw
 
-
 class GuiApp(tk.Tk):
     def __init__(self):
         super().__init__()
         
         self.title('Menu')
         self.geometry('300x200')
+        self.configure(background='white')
 
         self.label = ttk.Label(self, text='Choose a tool')
         self.label.pack()
