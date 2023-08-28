@@ -28,7 +28,7 @@ class GuiApp(tk.Tk):
         drop = tk.OptionMenu(self, tools, *options)
         drop.place(x=50,y=30)
 
-        self.button = ttk.Button(self, text='Click Me')
+        self.button = ttk.Button(self, text='Apply')
         self.button.place(x=10,y=150)
 
 if __name__ == '__main__':
