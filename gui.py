@@ -12,15 +12,24 @@ class GuiApp(tk.Tk):
     def __init__(self):
         super().__init__()
         
-        self.title('My Awesome App')
-        self.geometry('300x300')
+        self.title('Menu')
+        self.geometry('300x200')
 
-        self.label = ttk.Label(self, text='Hello, Tkinter!')
+        self.label = ttk.Label(self, text='Choose a tool')
         self.label.pack()
+        
+        options = [
+            'Needlemann-Wunsch Algorithm',
+            'Smith-Waterman Algorithm',
+            'Best Cost Matrix']
+        
+        tools = tk.StringVar()
+        tools.set('Neeleman-Wunsch Algorithm')
+        drop = tk.OptionMenu(self, tools, *options)
+        drop.place(x=50,y=30)
 
         self.button = ttk.Button(self, text='Click Me')
-        #self.button['command'] = self.button_clicked
-        self.button.pack()
+        self.button.place(x=10,y=150)
 
 if __name__ == '__main__':
     app = GuiApp()
