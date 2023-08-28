@@ -26,6 +26,7 @@ class SmithWaterman():
     
     def initDP(self, s1,s2):
         dp = [[0 for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
+    
         for i in range(0,len(s1)+1):
             dp[i][0] = 0
         for j in range(0,len(s2)+1):
@@ -72,7 +73,70 @@ class SmithWaterman():
                              
         return max_similarities
     
-s1 = 'accgg'
+    def trackbackLocalAlignment(self, dp_mat, type, s1, s2):
+        maxScore = 0
+        maxIndices = []
+
+        for i in range(0, len(s1)+1):
+            for j in range(0, len(s2)+1):
+                if dp_mat[i][j] > maxScore:
+                    maxScore = dp_mat[i][j]
+                    maxIndices = [(i,j)]
+                elif dp_mat[i][j] == maxScore:
+                    maxIndices.append((i,j))
+
+        alignments = []
+        for indices in maxIndices:
+            i,j = indices
+            al1, al2 = '',''
+            if type == 'nt':
+                while i > 0 and j > 0 and dp_mat[i][j] > 0:
+                    if dp_mat[i][j] == dp_mat[i-1][j] + self.similarities(s1[i-1], '-'):
+                        al1 = s1[i-1] + al1
+                        al2 = '-' + al2
+                        i -= 1
+
+                    elif dp_mat[i][j] == dp_mat[i][j-1] + self.similarities('-', s2[j-1]):
+                        al1 = '-' + al1
+                        al2 = s2[j-1] + al2
+                        j -= 1
+
+                    elif dp_mat[i][j] == dp_mat[i-1][j-1] + self.similarities(s1[i-1],s2[j-1]):
+                        al1 = s1[i-1] + al1
+                        al2 = s2[j-1] + al2
+                        i -= 1
+                        j -= 1
+
+                alignments.append((al1, al2))
+
+            elif type == 'aa':
+                while i > 0 and j > 0 and dp_mat[i][j] > 0:
+                    if dp_mat[i][j] == dp_mat[i-1][j] + self.similarities(s1[i-1], '-'):
+                        al1 = s1[i-1] + al1
+                        al2 = '-' + al2
+                        i -= 1
+
+                    elif dp_mat[i][j] == dp_mat[i][j-1] + self.similarities('-', s2[j-1]):
+                        al1 = '-' + al1
+                        al2 = s2[j-1] + al2
+                        j -= 1
+
+                    elif dp_mat[i][j] == dp_mat[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]:
+                        al1 = s1[i-1] + al1
+                        al2 = s2[j-1] + al2
+                        i -= 1
+                        j -= 1
+                alignments.append((al1, al2))
+                
+        return alignments 
+            
+    def printAlignmnts(self, als):
+        for al in als:
+            print()
+            for i in al:
+                print(i)
+
+s1 = 'agtagt'
 t = 'nt'
 h1 = 'h1'
 
@@ -83,7 +147,7 @@ f1.setSequence(t,s1)
 f1.printFasta(f1)
 
 
-s2 = 'cga'
+s2 = 'agt'
 h2 = 'h2'
 
 f2 = Fasta()
@@ -98,4 +162,9 @@ dp = sw.calcualteDP(t,f1.getSequence(),f2.getSequence())
 for i in range(0,len(dp)):
     print(dp[i])
 
-print(sw.getMaximalSimilarities(dp))
+idx = sw.getMaximalSimilarities(dp)
+#al = sw.buildAlignments(idx)
+
+als = sw.trackbackLocalAlignment(dp, t,s1,s2)
+
+sw.printAlignmnts(als)
