@@ -89,6 +89,7 @@ class NeedlemannWunsch():
             for i in al:
                 print(i)
 
+'''
 s1 = 'acgt'
 t = 'nt'
 h1 = 'h1'
@@ -126,3 +127,4 @@ print(c)
 als = nw.trackbackGlobalAlignments(dp,t,s1,s2,len(s1),len(s2))
 
 nw.printGlobalAlignments(als)
+'''
