@@ -73,6 +73,9 @@ class MultipleSequenzalignment():
                         dp[i][j][k] = min(f1,f2,f3,f4,f5,f6,f7)
                       
         return dp
+    
+    def getMinimalCosts(self, dp_mat):
+        return dp_mat[-1][-1][-1]
 
     def trackbackMSA(self, dp_mat, s1, s2, s3, i, j, k, al1='', al2='', al3='', alignments=[]):
         if i == 0 and j == 0 and k == 0:
@@ -111,13 +114,12 @@ s2 = 'CTAC'
 s3 = 'GTAG'
 msa = MultipleSequenzalignment()
 
-dp = msa.initDP(s1, s2, s3)
-for i in range(0,len(dp)):
-    print(dp[i])
-
 print()
 
 dp = msa.calcualteDP(s1, s2, s3)
+
+c = msa.getMinimalCosts(dp)
+print(c)
 
 als = msa.trackbackMSA(dp, s1, s2, s3, len(s1), len(s2), len(s3))
 
