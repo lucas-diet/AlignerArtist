@@ -86,7 +86,7 @@ class NeedlemannWunsch():
         for al in als:
             print()
             for i in al:
-                print(i)
+                print(str(i))
 
 '''
 s1 = 'acgt'
