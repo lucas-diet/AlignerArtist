@@ -1,7 +1,6 @@
 
 from fasta import Fasta as Fasta
 from blosum62 import blosum62
-from collections import deque
 
 class NeedlemannWunsch():
 
