@@ -65,7 +65,7 @@ class NeedlemannWunsch():
                 self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j, s1[i-1]+al1, '-'+al2, alignments)
             
             if j > 0 and dp_mat[i][j] == dp_mat[i][j-1] + self.costs('-',s2[j-1]):
-                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i, j-1, '-' + al1, s2[j-1]+al2, alignments)
+                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i, j-1, '-'+al1, s2[j-1]+al2, alignments)
             
             if i > 0 and j > 0 and dp_mat[i][j] == dp_mat[i-1][j-1] + self.costs(s1[i-1],s2[j-1]):
                     self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j-1, s1[i-1]+al1, s2[j-1]+al2, alignments)
@@ -85,8 +85,8 @@ class NeedlemannWunsch():
     def printGlobalAlignments(self,als):
         for al in als:
             print()
-            for i in al:
-                print(i)
+            for s in al:
+                print(s)
             print()
 
 '''

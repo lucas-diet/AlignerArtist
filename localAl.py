@@ -133,8 +133,8 @@ class SmithWaterman():
     def printAlignmnts(self, als):
         for al in als:
             print()
-            for i in al:
-                print(i)
+            for s in al:
+                print(s)
 
 
 '''
