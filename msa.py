@@ -109,6 +109,7 @@ class MultipleSequenzalignment():
             for s in al:
                 print(s)
 
+'''
 s1 = 'TACA'
 s2 = 'CTAC'
 s3 = 'GTAG'
@@ -124,3 +125,4 @@ print(c)
 als = msa.trackbackMSA(dp, s1, s2, s3, len(s1), len(s2), len(s3))
 
 msa.printMSA(als)
+'''
