@@ -39,7 +39,7 @@ class GuiApp(tk.Tk):
 
         if self.tools.get() == self.options[0]:
             toolWindow.title('Needlemann-Wunsch Algorithm')
-            toolWindow.geometry('600x500')
+            toolWindow.geometry('700x600')
             
             toolWindow.sequenceType = tk.OptionMenu(toolWindow, sequenceTypes, *sequenceOptions)
             toolWindow.sequenceType.config(fg='black')
@@ -47,15 +47,15 @@ class GuiApp(tk.Tk):
 
             toolWindow.seq1 = tk.Entry(toolWindow,width=50)
             toolWindow.seq1.config(bg='white',fg='black')
-            toolWindow.seq1.place(x=60,y=80)
+            toolWindow.seq1.place(x=90,y=80)
 
             toolWindow.seq2 = tk.Entry(toolWindow,width=50)
             toolWindow.seq2.config(bg='white',fg='black')
-            toolWindow.seq2.place(x=60,y=120)
+            toolWindow.seq2.place(x=90,y=120)
         
         if self.tools.get() == self.options[1]:
             toolWindow.title('Smith-Waterman Algorithm')
-            toolWindow.geometry('600x500')
+            toolWindow.geometry('700x600')
 
             toolWindow.sequenceType = tk.OptionMenu(toolWindow, sequenceTypes, *sequenceOptions)
             toolWindow.sequenceType.config(fg='black')
