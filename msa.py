@@ -38,8 +38,9 @@ class MultipleSequenzalignment():
                 f3 =  dp[i][j-1][0] + self.sumOfPair('-',s2[j-1],'-')
                 
                 dp[i][j][0] = min(f1,f2,f3)
-        
-            for k in range(1,len(s2)+1):
+
+        for i in range(1,len(s1)+1):
+            for k in range(1,len(s3)+1):
                 f1 = dp[i-1][0][k-1] + self.sumOfPair(s1[i-1],'-',s3[k-1])
                 f2 = dp[i-1][0][k] + self.sumOfPair(s1[i-1],'-','-')
                 f2 = dp[i][0][k-1] + self.sumOfPair('-','-',s3[k-1])
@@ -63,7 +64,7 @@ class MultipleSequenzalignment():
                     for k in range(1, len(s3)+1):
                         f1 = dp[i-1][j-1][k-1] + self.sumOfPair(s1[i-1], s2[j-1], s3[k-1])
                         f2 = dp[i-1][j-1][k] + self.sumOfPair(s1[i-1], s2[j-1], '-')
-                        f3 = dp[i-1][j][k-1] + self.sumOfPair(s1[i-1], '-', s2[k-1])
+                        f3 = dp[i-1][j][k-1] + self.sumOfPair(s1[i-1], '-', s3[k-1])
                         f4 = dp[i][j-1][k-1] + self.sumOfPair('-', s2[j-1], s3[k-1])
                         f5 = dp[i][j][k-1] + self.sumOfPair('-', '-', s3[k-1])
                         f6 = dp[i][j-1][k] + self.sumOfPair('-', s2[j-1], '-')
@@ -107,6 +108,7 @@ class MultipleSequenzalignment():
         for al in als:
             for s in al:
                 print(s)
+            print()
 
 
 s1 = 'taca'
