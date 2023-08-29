@@ -59,7 +59,7 @@ class GuiApp(tk.Tk):
 
             self.result = tk.StringVar()
             self.output = tk.Label(self.toolWindow, height=15, width=65)
-            self.output.config(bg='white', fg='black', state='disabled')
+            self.output.config(state='disabled') #bg='white', fg='black', 
             self.output.place(x=90,y=340)
         
         if self.tools.get() == self.options[1]:
@@ -89,25 +89,21 @@ class GuiApp(tk.Tk):
         s1 = self.seq1.get()
         s2 = self.seq2.get()
         t = ''
+        
         '''
         if self.sequenceType == 'Nucleotidsequence':
             t = 'nt'
         elif self.sequenceType == 'Aminoacidsequence':
             t = 'aa'
-        '''
         
+        self.output.config(bg='white', fg='black', state='normal')
         nw = NW()
         dp = nw.calcualteDP('nt',s1,s2)
         als = nw.trackbackGlobalAlignments(dp,'nt',s1,s2,len(s1),len(s2))
-        result = nw.printGlobalAlignments(als)
-        for al in als:
-            self.result.set('\n')
-            for i in al:
-                self.result.set(i)
+        print(als)
+        self.output.config(text=nw.printGlobalAlignments(als))
         self.output.config(bg='white', fg='black', state='disabled')
-        
-
-    
+        '''
 
 if __name__ == '__main__':
     app = GuiApp()
