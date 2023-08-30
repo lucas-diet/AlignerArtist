@@ -77,7 +77,7 @@ class GuiApp(tk.Tk):
         self.tool_options = [
             'Needlemann-Wunsch Algorithm',
             'Smith-Waterman Algorithm',
-            'Multiples-Sequencealignment',
+            'Multiples-Sequence-Alignment',
             'Best Cost Matrix']
         
         self.tools = tk.StringVar()
