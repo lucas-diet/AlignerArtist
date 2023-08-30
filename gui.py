@@ -138,19 +138,19 @@ class GuiApp(tk.Tk):
             #self.output_dp_scrol_v.pack(fill='y')
             #self.output_dp_scrol_h.pack(fill="y")
 
-            self.output_als.config(xscrollcommand=self.output_dp_scrol_h.set)
-            self.output_dp.config(yscrollcommand=self.output_dp_scrol_v.set)
+            self.output_dp.config(xscrollcommand=self.output_dp_scrol_h.set,yscrollcommand=self.output_dp_scrol_v.set)
             
             self.output_als.config(bg='white', fg='black', state='disabled')
             self.output_dp.config(bg='white', fg='black', state='disabled')
-
+      
+    
     def alignInput(self):
         
         s1 = self.seq1.get()
         s2 = self.seq2.get()
         t = ''
 
-
+        
         if self.sequence_type == 'Nucleotidsequence':
             t = 'nt'
         elif self.sequence_type == 'Aminoacidsequence':
@@ -162,30 +162,28 @@ class GuiApp(tk.Tk):
         nw = NW()
         dp = nw.calcualteDP('nt',s1,s2)
         als = nw.trackbackGlobalAlignments(dp,'nt',s1,s2,len(s1),len(s2))
-        
+
         formatted_als = ''
         self.output_als.delete('1.0',tk.END)
         for al in als:
             formatted_als += '\n'.join(map(str, al)) + '\n\n'
-        #####
-        #funktioniert nodh nicht!!
-        self.output_als.delete('1.0', tk.END)
-        #####
-        self.output_als.insert('end', formatted_als)
         
+        als.clear()
+        self.output_als.delete('1.0', tk.END)
+        self.output_als.insert('end', formatted_als)
         
         formatted_dp = ''
         for line in dp:
             formatted_dp += '\t'.join(map(str, line)) +'\n'
-
+        print(formatted_dp)
         self.output_dp.delete('1.0', 'end')
+        self.output_dp.update()
         self.output_dp.insert('end', formatted_dp)
         self.output_dp.insert('end', '\n')
 
         self.output_als.config(state='disabled')
         self.output_dp.config(state='disabled')
-        
-        
+      
 
 if __name__ == '__main__':
     app = GuiApp()
