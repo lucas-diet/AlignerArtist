@@ -78,7 +78,7 @@ class BestCostMatrix():
                 print(col, end=' ')
             print()
 
-'''
+
 s1 = 'AGATC'
 s2 = 'TACATA'
 
@@ -93,4 +93,3 @@ print()
 bcm.printMatrix('D_rev:', drev)
 print()
 bcm.printMatrix('M:', m)
-'''
