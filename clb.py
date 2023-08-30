@@ -13,6 +13,7 @@ class CarilloLipmanBarrier():
        upperBarrier = alScore - (dps)
        return upperBarrier
 
+'''
 s1 = 'AGATC'
 s2 = 'TACATA'
 s3 = 'GAGAT'
@@ -40,3 +41,4 @@ print()
 bcm.printMatrix('D23:', dp23)
 print()
 bcm.printMatrix('DRev23:', dprev23)
+'''
