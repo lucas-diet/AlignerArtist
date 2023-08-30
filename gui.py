@@ -150,7 +150,7 @@ class GuiApp(tk.Tk):
         s2 = self.seq2.get()
         t = ''
 
-        
+
         if self.sequence_type == 'Nucleotidsequence':
             t = 'nt'
         elif self.sequence_type == 'Aminoacidsequence':
@@ -175,7 +175,7 @@ class GuiApp(tk.Tk):
         formatted_dp = ''
         for line in dp:
             formatted_dp += '\t'.join(map(str, line)) +'\n'
-        print(formatted_dp)
+        
         self.output_dp.delete('1.0', 'end')
         self.output_dp.update()
         self.output_dp.insert('end', formatted_dp)
