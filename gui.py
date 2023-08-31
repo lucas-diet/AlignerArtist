@@ -123,8 +123,8 @@ class GuiApp(tk.Tk):
     
     def alignInputNW(self):
         
-        self.s1 = self.seq1.get()
-        self.s2 = self.seq2.get()
+        self.s1 = self.seq1.get().lower()
+        self.s2 = self.seq2.get().lower()
 
         self.type = ''
 
@@ -178,7 +178,7 @@ class GuiApp(tk.Tk):
                     
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
-                self.output_als.insert('end', formatted_als)
+                self.output_als.insert('end', formatted_als.upper())
                         
                 formatted_dp = ''
                 for line in dp:
@@ -197,8 +197,8 @@ class GuiApp(tk.Tk):
               
     def alignInputSW(self):
         
-        self.s1 = self.seq1.get()
-        self.s2 = self.seq2.get()
+        self.s1 = self.seq1.get().lower()
+        self.s2 = self.seq2.get().lower()
 
         self.type = ''
 
@@ -252,7 +252,7 @@ class GuiApp(tk.Tk):
                     
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
-                self.output_als.insert('end', formatted_als)
+                self.output_als.insert('end', formatted_als.upper())
                         
                 formatted_dp = ''
                 for line in dp:
