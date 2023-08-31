@@ -137,6 +137,7 @@ class GuiApp(tk.Tk):
         if len(self.s1) == 0 or len(self.s2) == 0:
             self.msg.set('Please enter a sequence')
             self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+        
         else:
             self.msg.set('\t \t ')
             self.error.config(text=self.msg.get())
@@ -211,6 +212,7 @@ class GuiApp(tk.Tk):
         if len(self.s1) == 0 or len(self.s2) == 0:
             self.msg.set('Please enter a sequence')
             self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+        
         else:
             self.msg.set('\t \t ')
             self.error.config(text=self.msg.get())
