@@ -119,8 +119,7 @@ class GuiApp(tk.Tk):
             
             self.output_als.config(bg='white', fg='black', state='disabled')
             self.output_dp.config(bg='white', fg='black', state='disabled')
-      
-    
+         
     def alignInputNW(self):
         
         self.s1 = self.seq1.get().lower()
