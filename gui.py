@@ -71,7 +71,7 @@ class GuiApp(tk.Tk):
         self.title('Menu')
         self.geometry('300x200')
 
-        self.label = ttk.Label(self, text='Choose a tool')
+        self.label = tk.Label(self, text='Choose a tool')
         self.label.pack()
         
         self.tool_options = [
@@ -93,15 +93,15 @@ class GuiApp(tk.Tk):
         
         self.tool_window = tk.Tk()
 
-        sequence_options = ['Nucleotidsequence', 'Aminoacidsequence']
-        sequence_types = tk.StringVar(self.tool_window)
-        sequence_types.set(sequence_options[0])
+        self.sequence_options = ['Nucleotidsequence', 'Aminoacidsequence']
+        self.sequence_types = tk.StringVar(self.tool_window)
+        self.sequence_types.set(self.sequence_options[0])
 
         if self.tools.get() == self.tool_options[0]:
             self.tool_window.title('Needlemann-Wunsch Algorithm')
             self.tool_window.geometry('700x600')
             
-            self.sequence_type = tk.OptionMenu(self.tool_window, sequence_types, *sequence_options)
+            self.sequence_type = tk.OptionMenu(self.tool_window, self.sequence_types, *self.sequence_options)
             self.sequence_type.config(fg='black')
             self.sequence_type.place(x=20,y=20)
 
@@ -144,7 +144,13 @@ class GuiApp(tk.Tk):
         
         s1 = self.seq1.get()
         s2 = self.seq2.get()
-       
+
+        self.type = ''
+
+        f1 = Fasta()
+        f2 = Fasta()
+        
+
         self.error = tk.Label(self.tool_window)
         self.error.place(x=90,y=150)
         self.msg = tk.StringVar()
@@ -155,20 +161,22 @@ class GuiApp(tk.Tk):
         else:
             self.msg.set('\t \t ')
             self.error.config(text=self.msg.get())
-        
-            t = ''
-            if self.sequence_type == 'Nucleotidsequence':
-                t = 'nt'
-            elif self.sequence_type == 'Aminoacidsequence':
-                t = 'aa'
                 
             self.output_als.config(state='normal')
             self.output_dp.config(state='normal')
                 
             nw = NW()
-            dp = nw.calcualteDP('nt',s1,s2)
-            als = nw.trackbackGlobalAlignments(dp,'nt',s1,s2,len(s1),len(s2))
+            
+            if self.sequence_types.get() == self.sequence_options[0]:
+                self.type = 'nt'
+                
+            elif self.sequence_types.get() == self.sequence_options[1]:
+               self.type = 'aa'
+            
+            print(self.type)
 
+            dp = nw.calcualteDP(self.type, s1, s2)
+            als = nw.trackbackGlobalAlignments(dp, self.type, s1, s2, len(s1), len(s2))
             formatted_als = ''
             self.output_als.delete('1.0',tk.END)
             for al in als:
