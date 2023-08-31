@@ -53,15 +53,15 @@ class Fasta():
         if type == 'nt':
             chekedSequence = self.checkSequence(type,sequence)
             if chekedSequence == 'ERROR':
-                print('ERROR')
-                self.sequence = ''
+                #return 'ERROR'
+                self.sequence = 'ERROR'
             elif self.sequence == sequence:
                 self.sequence = sequence
         elif type == 'aa':
             chekedSequence = self.checkSequence(type,sequence)
             if chekedSequence == 'ERROR':
-                print('ERROR')
-                self.sequence = ''
+                #return 
+                self.sequence = 'ERROR'
             elif self.sequence == sequence:
                 self.sequence = sequence
     

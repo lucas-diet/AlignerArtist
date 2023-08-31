@@ -6,63 +6,6 @@ from blosum62 import blosum62
 from globalAl import NeedlemannWunsch as NW
 from localAl import SmithWaterman as SW
 
-'''
-menu_window = Tk()
-menu_window.title('Menu')
-menu_window.geometry('300x200')
-
-tool_choose = Label(menu_window, text='Choose a tool').pack()
-
-tool_options = [
-            'Needlemann-Wunsch Algorithm',
-            'Smith-Waterman Algorithm',
-            'Best Cost Matrix']
-
-tools = StringVar()
-tools.set(tool_options[0])
-drop_menu = OptionMenu(menu_window, tools, *tool_options)
-drop_menu.config(fg='black')
-drop_menu.place(x=30,y=30)
-
-def openToolWindow():
-        
-        tool_window = Tk()
-
-        sequence_options = ['Nucleotidsequence', 'Aminoacidsequence']
-        sequence_types = StringVar(tool_window)
-        sequence_types.set(sequence_options[0])
-
-        if tools.get() == tool_options[0]:
-            tool_window.title('Needlemann-Wunsch Algorithm')
-            tool_window.geometry('700x600')
-            
-            sequence_type = OptionMenu(tool_window, sequence_types, *sequence_options)
-            sequence_type.config(fg='black')
-            sequence_type.place(x=20,y=20)
-
-            seq1 = Entry(tool_window, width=50)
-            seq1.config(bg='white', fg='black')
-            seq1.place(x=90,y=80)
-
-            seq2 = Entry(tool_window,width=50)
-            seq2.config(bg='white', fg='black')
-            seq2.place(x=90,y=120)
-
-            al_button = Button(tool_window, text='Align', command=None)
-            al_button.place(x=10,y=300)
-
-            result = StringVar()
-            output = Label(tool_window, height=15, width=65)
-            output.config(state='disabled') #bg='white', fg='black', 
-            output.place(x=90,y=340)
-
-menu_btn = Button(menu_window, text='Apply', command=openToolWindow)
-menu_btn.place(x=10,y=150)
-
-menu_window.mainloop()
-'''
-
-
 
 class GuiApp(tk.Tk):
     
@@ -141,21 +84,19 @@ class GuiApp(tk.Tk):
     
     def alignInput(self):
         
-        
-        s1 = self.seq1.get()
-        s2 = self.seq2.get()
+        self.s1 = self.seq1.get()
+        self.s2 = self.seq2.get()
 
         self.type = ''
 
-        f1 = Fasta()
-        f2 = Fasta()
-        
+        self.f1 = Fasta()
+        self.f2 = Fasta()
 
         self.error = tk.Label(self.tool_window)
         self.error.place(x=90,y=150)
         self.msg = tk.StringVar()
         
-        if len(s1) == 0 or len(s2) == 0:
+        if len(self.s1) == 0 or len(self.s2) == 0:
             self.msg.set('Please enter a sequence')
             self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
         else:
@@ -169,39 +110,53 @@ class GuiApp(tk.Tk):
             
             if self.sequence_types.get() == self.sequence_options[0]:
                 self.type = 'nt'
+                self.f1.setSequenceType(self.type)
+                self.f2.setSequenceType(self.type)
+                self.f1.setSequence(self.type, self.s1)
+                self.f2.setSequence(self.type, self.s2)
                 
             elif self.sequence_types.get() == self.sequence_options[1]:
-               self.type = 'aa'
+                self.type = 'aa'
+                self.f1.setSequenceType(self.type)
+                self.f2.setSequenceType(self.type)
+                self.f1.setSequence(self.type, self.s1)
+                self.f2.setSequence(self.type, self.s2)
             
-            print(self.type)
-
-            dp = nw.calcualteDP(self.type, s1, s2)
-            als = nw.trackbackGlobalAlignments(dp, self.type, s1, s2, len(s1), len(s2))
-            formatted_als = ''
-            self.output_als.delete('1.0',tk.END)
-            for al in als:
-                formatted_als += '\n'.join(map(str, al)) + '\n\n'
+            if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
+                #print(self.f1.getSequence())
+                self.msg.set('Illigal sequence')
+                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
             
-            als.clear()
-            self.output_als.delete('1.0', tk.END)
-            self.output_als.insert('end', formatted_als)
+            else:
+                #print(self.f1.getSequence())
+                dp = nw.calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
+                als = nw.trackbackGlobalAlignments(dp, self.f1.getSequenceType(), self.s1, self.s2, len(self.s1), len(self.s2))
                 
-            formatted_dp = ''
-            for line in dp:
-                formatted_dp += '\t'.join(map(str, line)) +'\n'
-                
-            self.output_dp.delete('1.0', 'end')
-            self.output_dp.update()
-            self.output_dp.insert('end', formatted_dp)
-            self.output_dp.insert('end', '\n')
+                formatted_als = ''
+                self.output_als.delete('1.0',tk.END)
+                for al in als:
+                    formatted_als += '\n'.join(map(str, al)) + '\n\n'
+                    
+                als.clear()
+                self.output_als.delete('1.0', tk.END)
+                self.output_als.insert('end', formatted_als)
+                        
+                formatted_dp = ''
+                for line in dp:
+                    formatted_dp += '\t'.join(map(str, line)) +'\n'
+                        
+                self.output_dp.delete('1.0', 'end')
+                self.output_dp.update()
+                self.output_dp.insert('end', formatted_dp)
+                self.output_dp.insert('end', '\n')
 
-            self.output_als.config(state='disabled')
-            self.output_dp.config(state='disabled')
+                self.output_als.config(state='disabled')
+                self.output_dp.config(state='disabled')
 
-            self.seq1.delete(0,tk.END)
-            self.seq2.delete(0,tk.END)
-               
-      
+                self.seq1.delete(0,tk.END)
+                self.seq2.delete(0,tk.END)
+              
+        
 
 if __name__ == '__main__':
     app = GuiApp()
