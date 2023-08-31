@@ -116,7 +116,6 @@ class GuiApp(tk.Tk):
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInput)
             self.al_button.place(x=10,y=300)
 
-            #self.result = tk.StringVar()
             self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=40)
             self.output_als.pack(fill="both", expand=True)
             self.output_als.place(x=90,y=340)
@@ -128,15 +127,11 @@ class GuiApp(tk.Tk):
 
             self.output_als_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_als.yview, orient='vertical')
             self.output_als_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_als.xview, orient='horizontal')
-            #self.output_als_scrol_v.pack(fill='y')
-            #self.output_als_scrol_h.pack(fill="y")
 
             self.output_als.config(xscrollcommand=self.output_als_scrol_h.set, yscrollcommand=self.output_als_scrol_v.set)
 
             self.output_dp_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_dp.yview, orient='vertical')
             self.output_dp_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_dp.xview, orient='horizontal')
-            #self.output_dp_scrol_v.pack(fill='y')
-            #self.output_dp_scrol_h.pack(fill="y")
 
             self.output_dp.config(xscrollcommand=self.output_dp_scrol_h.set,yscrollcommand=self.output_dp_scrol_v.set)
             
@@ -146,43 +141,58 @@ class GuiApp(tk.Tk):
     
     def alignInput(self):
         
+        
         s1 = self.seq1.get()
         s2 = self.seq2.get()
-        t = ''
+       
+        self.error = tk.Label(self.tool_window)
+        self.error.place(x=90,y=150)
+        self.msg = tk.StringVar()
+        
+        if len(s1) == 0 or len(s2) == 0:
+            self.msg.set('Please enter a sequence')
+            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+        else:
+            self.msg.set('\t \t ')
+            self.error.config(text=self.msg.get())
+        
+            t = ''
+            if self.sequence_type == 'Nucleotidsequence':
+                t = 'nt'
+            elif self.sequence_type == 'Aminoacidsequence':
+                t = 'aa'
+                
+            self.output_als.config(state='normal')
+            self.output_dp.config(state='normal')
+                
+            nw = NW()
+            dp = nw.calcualteDP('nt',s1,s2)
+            als = nw.trackbackGlobalAlignments(dp,'nt',s1,s2,len(s1),len(s2))
 
+            formatted_als = ''
+            self.output_als.delete('1.0',tk.END)
+            for al in als:
+                formatted_als += '\n'.join(map(str, al)) + '\n\n'
+            
+            als.clear()
+            self.output_als.delete('1.0', tk.END)
+            self.output_als.insert('end', formatted_als)
+                
+            formatted_dp = ''
+            for line in dp:
+                formatted_dp += '\t'.join(map(str, line)) +'\n'
+                
+            self.output_dp.delete('1.0', 'end')
+            self.output_dp.update()
+            self.output_dp.insert('end', formatted_dp)
+            self.output_dp.insert('end', '\n')
 
-        if self.sequence_type == 'Nucleotidsequence':
-            t = 'nt'
-        elif self.sequence_type == 'Aminoacidsequence':
-            t = 'aa'
-        
-        self.output_als.config(state='normal')
-        self.output_dp.config(state='normal')
-        
-        nw = NW()
-        dp = nw.calcualteDP('nt',s1,s2)
-        als = nw.trackbackGlobalAlignments(dp,'nt',s1,s2,len(s1),len(s2))
+            self.output_als.config(state='disabled')
+            self.output_dp.config(state='disabled')
 
-        formatted_als = ''
-        self.output_als.delete('1.0',tk.END)
-        for al in als:
-            formatted_als += '\n'.join(map(str, al)) + '\n\n'
-        
-        als.clear()
-        self.output_als.delete('1.0', tk.END)
-        self.output_als.insert('end', formatted_als)
-        
-        formatted_dp = ''
-        for line in dp:
-            formatted_dp += '\t'.join(map(str, line)) +'\n'
-        
-        self.output_dp.delete('1.0', 'end')
-        self.output_dp.update()
-        self.output_dp.insert('end', formatted_dp)
-        self.output_dp.insert('end', '\n')
-
-        self.output_als.config(state='disabled')
-        self.output_dp.config(state='disabled')
+            self.seq1.delete(0,tk.END)
+            self.seq2.delete(0,tk.END)
+               
       
 
 if __name__ == '__main__':
