@@ -2,18 +2,27 @@ from bcm import BestCostMatrix as BCM
 
 class CarilloLipmanBarrier():
 
-    def __init__(self, dp, dpRev, m, s1='', s2=''):
+    def __init__(self, alScore = 0, s1='', s2=''):
         self.s1 = s1
         self.s2 = s2
-        self.dp = dp
-        self.dpRev = dpRev
-        self.m = m
+        self.alScore = alScore
 
-    def calculateBarrier(self, alScore, *dps):
-       upperBarrier = alScore - (dps)
-       return upperBarrier
+    def setAlScore(self, alScore):
+        self.alScore = alScore
 
-'''
+    def getAlScore(self):
+       return self.alScore
+    
+    def printSmallMatrix(self, m, u):
+        for i in range(0,len(m)):
+            for j in range(0,len(m[0])):
+                if m[i][j] <= u:
+                    print(m[i][j], end=' ')
+                else:
+                    print('  ', end='')
+            print()
+
+
 s1 = 'AGATC'
 s2 = 'TACATA'
 s3 = 'GAGAT'
@@ -28,17 +37,20 @@ dprev12 = bcm.calculateDPRev(s1,s2)
 dprev13 = bcm.calculateDPRev(s1,s3)
 dprev23 = bcm.calculateDPRev(s2,s3)
 
-bcm.printMatrix('D12:', dp12)
-print()
-bcm.printMatrix('DRev12:', dprev12)
+m12 = bcm.calculateM(dp12, dprev12)
+m13 = bcm.calculateM(dp13, dprev13)
+m23 = bcm.calculateM(dp23, dprev23)
 
 print()
-bcm.printMatrix('D13:', dp13)
-print()
-bcm.printMatrix('DRev13:', dprev13)
+clb = CarilloLipmanBarrier()
+clb.setAlScore(10)
 
-print()
-bcm.printMatrix('D23:', dp23)
-print()
-bcm.printMatrix('DRev23:', dprev23)
-'''
+alScore = clb.getAlScore()
+
+u12 = alScore - (dp13[-1][-1] + dp23[-1][-1])
+u13 = alScore - (dp12[-1][-1] + dp23[-1][-1])
+u23 = alScore - (dp12[-1][-1] + dp13[-1][-1])
+
+clb.printSmallMatrix(m12, u12)
+clb.printSmallMatrix(m13, u13)
+clb.printSmallMatrix(m23, u23)
