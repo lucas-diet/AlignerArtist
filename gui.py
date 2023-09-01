@@ -56,6 +56,21 @@ class GuiApp(tk.Tk):
             self.seq2.config(bg='white', fg='black')
             self.seq2.place(x=90,y=120)
 
+            self.match_label = tk.Label(self.tool_window, text='Match').place(x=100,y=200)
+            self.match_entry = tk.Entry(self.tool_window,width=3)
+            self.match_entry.place(x=150,y=200)
+            self.match_entry.config(bg='white')
+
+            self.mismatch_label = tk.Label(self.tool_window, text='Mismatch').place(x=200,y=200)
+            self.mismatch_entry = tk.Entry(self.tool_window,width=3)
+            self.mismatch_entry.place(x=270,y=200)
+            self.mismatch_entry.config(bg='white')
+
+            self.gap_label = tk.Label(self.tool_window, text='Gap').place(x=320,y=200)
+            self.gap_entry = tk.Entry(self.tool_window,width=3)
+            self.gap_entry.place(x=350,y=200)
+            self.gap_entry.config(bg='white')
+
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputNW)
             self.al_button.place(x=10,y=300)
 
@@ -95,6 +110,21 @@ class GuiApp(tk.Tk):
             self.seq2 = tk.Entry(self.tool_window,width=50)
             self.seq2.config(bg='white', fg='black')
             self.seq2.place(x=90,y=120)
+
+            self.match_label = tk.Label(self.tool_window, text='Match').place(x=100,y=200)
+            self.match_entry = tk.Entry(self.tool_window,width=3)
+            self.match_entry.place(x=150,y=200)
+            self.match_entry.config(bg='white')
+
+            self.mismatch_label = tk.Label(self.tool_window, text='Mismatch').place(x=200,y=200)
+            self.mismatch_entry = tk.Entry(self.tool_window,width=3)
+            self.mismatch_entry.place(x=270,y=200)
+            self.mismatch_entry.config(bg='white')
+
+            self.gap_label = tk.Label(self.tool_window, text='Gap').place(x=320,y=200)
+            self.gap_entry = tk.Entry(self.tool_window,width=3)
+            self.gap_entry.place(x=350,y=200)
+            self.gap_entry.config(bg='white')
 
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputSW)
             self.al_button.place(x=10,y=300)
