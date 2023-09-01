@@ -7,6 +7,16 @@ class Fasta():
         self.sequence = sequence
 
     def checkHeader(self, header):
+        """_summary_
+            Nimmt einen String (header) und überprüft, ob erstes Zeichen ein '>' ist.
+            Wenn nicht dann wird der String so angepasst, dass die Bedingung für ein
+            Header erfüllt ist.
+        Args:
+            header (String): Eine Art Name für eine Sequenz
+
+        Returns:
+            String: Den Header
+        """
         if header[0] != '>':
             correctHeader = '>'+ header
             return correctHeader
@@ -14,6 +24,17 @@ class Fasta():
             return header
 
     def checkSequence(self, type,sequence):
+        """_summary_
+            Überprüft für die zwei Arten von Sequenzen (Nukleotidsequenz (nt), Aminosäuresequenz (aa)), 
+            ob es keine verbotenen Buchstben in der Sequenz gibt. Falls es verbotene Buchstaben gibt, dann
+            wird 'ERROR' zurückgegeben.
+        Args:
+            type (String):Beschreibt die Art der Sequenz, ob es sich um eine Nukleotidsequenz 'nt' oder eine
+            Aminosäuresequenz 'aa' handelt.
+            sequence (String): _description_
+        Returns:
+            String: Error-String
+        """
         __nts = ['a','c','g','t']
         __aas = ['a','c','h','m','t','r','q','i','f','w','n','e','l','p','y','d','g','k','s','v']
         
@@ -33,14 +54,23 @@ class Fasta():
                    self.sequence = sequence
 
     def setHeader(self, header):
+        """_summary_
+            Legt den Header fest. Bevor der Header aber festgelegt wird, wird dieser auf Korrektheit überprüft.
+        Args:
+            header (String): Name einer Sequenz
+        """
         checkedHeader = self.checkHeader(header)
         self.header = checkedHeader
-
     
     def getHeader(self):
         return self.header
 
     def setSequenceType(self, type):
+        """_summary_
+            Soll die Art der Sequenz festlegen.
+        Args:
+            type (String): Beschreibt die Art der Sequenz (Nukleotide oder Aminosäuren)
+        """
         if type == 'nt':
             self.type = type
         elif type == 'aa':

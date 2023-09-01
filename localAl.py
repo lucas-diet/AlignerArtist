@@ -16,6 +16,15 @@ class SmithWaterman():
         return self.penalty
     
     def similarities(self, c1,c2):
+        """_summary_
+
+        Args:
+            c1 (char): ausgewählter Buchstabe
+            c2 (char): ausgewählter Buchstabe
+
+        Returns:
+            int: Kosten entsprechend der Ähnlichkeitsfunktion.
+        """
         if c1 == c2:
             return self.penalty['match']
         elif c1 != c2:
@@ -25,6 +34,16 @@ class SmithWaterman():
                 return self.penalty['gap']
     
     def initDP(self, s1,s2):
+        """_summary_
+            Es werden zwei Sequenzen übergeben, mit denen dann eine Matrix erzeugt wird.
+            Die Nullte Zeile bzw. Spalte wird mit Nullen aufgefüllt.
+        Args:
+            s1 (str): Erste Sequenz
+            s2 (str): Zweite Sequenz
+
+        Returns:
+            _type_: Eine Matrix
+        """
         dp = [[0 for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
     
         for i in range(0,len(s1)+1):
@@ -35,6 +54,18 @@ class SmithWaterman():
         return dp
     
     def calcualteDP(self, type,s1,s2):
+        """_summary_
+            Hier wird die initialisierte Matrix dann gefüllt, in dem das Prinzip der dynamischen Programmierung 
+            angewendet wird. Bzw. die Rekurrenz für den Smith-Waterman-Algorithmus ausgeführt wird.
+            Der gewählte Wert für eine Zelle der Matrix ist dann immer das Minimum aus den drei Fällen.
+        Args:
+            type (str): Art der Sequent (nt/aa)
+            s1 (str): Sequenz 1
+            s2 (str): Sequenz 2
+
+        Returns:
+            _type_: Eine gefüllte Matrix
+        """
         dp = self.initDP(s1,s2)
         if type == 'nt':
             for i in range(1,len(s1)+1):
@@ -55,6 +86,14 @@ class SmithWaterman():
         return dp
 
     def getMaximalSimilarities(self, dp_matrix):
+        """_summary_
+            Hier werden alle Positionen in der Matrix bestimmt, wo eine maximaler Wert steht.
+        Args:
+            dp_matrix (_type_): Eine Matrix die mit Werten gefüllt sind.
+
+        Returns:
+            liste: Mit 3 Werten (max-Wert, Zeile, Spalte) für jeden maximalen Wert existiert so ein Tripel
+        """
         score = row = col = 0
         tmp_max = [[score, row, col]]
 
@@ -74,6 +113,17 @@ class SmithWaterman():
         return max_similarities
     
     def trackbackLocalAlignment(self, dp_mat, type, s1, s2):
+        """_summary_
+            Es werden die Positionen der der Zellen mit maximalen Wert ermittelt und dann wird von diesen
+            Positionen die Alignments mit maximaler Ähnlichkeit bestimmt.
+        Args:
+            dp_mat (_type_): Eine mit Werten gefüllte Matrix
+            type (str): nt/aa
+            s1 (str): Sequenz 1
+            s2 (str): _Sequenz 2
+        Returns:
+            list: Liste mit allen gefundenen Alignments, die eine maximale Ähnlichkeit aufweisen.
+        """
         maxScore = 0
         maxIndices = []
 

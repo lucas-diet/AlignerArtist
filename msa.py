@@ -9,6 +9,16 @@ class MultipleSequenzalignment():
         self.s3 = s3
     
     def sumOfPair(self, c1, c2, c3):
+        """_summary_
+            Berehcnet den Sum of Pairs Score für drei Buchsten und gibt diesen zurück.
+        Args:
+            c1 (char): Buchstabe aus Sequenz 1
+            c2 (char): Buchstabe aus Sequenz 2
+            c3 (char): Buchstabe aus Sequenz 3
+
+        Returns:
+            int: Sum of Pairs Score
+        """
         sc = 0
         
         if c1 != c2:
@@ -23,6 +33,16 @@ class MultipleSequenzalignment():
         return sc
 
     def initDP(self, s1, s2, s3):
+        """_summary_
+            Es werden drei Sequenzen übergeben und anhand der länge die 3D-Matrix initialisiert.
+        Args:
+            s1 (str): Sequenz 1
+            s2 (str): Sequenz 2
+            s3 (str): Sequenz 3
+
+        Returns:
+            _type_: Matrix mit den Initalisierten der Nullten Spalten und Zeilen.
+        """
         dp = [[[0 for _ in range(len(s3)+1)] for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
         for i in range(0,len(s1)+1):
             dp[i][0][0] = self.sumOfPair(s1[i-1], '-', '-') * i
@@ -58,6 +78,17 @@ class MultipleSequenzalignment():
         return dp
     
     def calcualteDP(self, s1, s2, s3):
+        """_summary_
+            Um den Wert für eine Zelle zu berechnen, werden durch 3 for-loops durch die Sequenzen gelaufen und dann 
+            für jede Zelle der miniamle Score berechnt.
+        Args:
+            s1 (str): Sequenz 1
+            s2 (str): Sequenz 2
+            s3 (str): Sequenz 3
+
+        Returns:
+            _type_: 3D-Matrix
+        """
         dp = self.initDP(s1, s2, s3)
         for i in range(1, len(s1)+1):
              for j in range(1, len(s2)+1):
@@ -78,6 +109,24 @@ class MultipleSequenzalignment():
         return dp_mat[-1][-1][-1]
 
     def trackbackMSA(self, dp_mat, s1, s2, s3, i, j, k, al1='', al2='', al3='', alignments=[]):
+        """_summary_
+
+        Args:
+            dp_mat (_type_): 3D-Matrix
+            s1 (str): Sequenz 1
+            s2 (str): Sequenz 2
+            s3 (str): Sequenz 3
+            i (int): Laufvariable für Sequenz 1
+            j (int): Laufvariable für Sequenz 2
+            k (int): Laufvariable für Sequenz 3
+            al1 (str, optional): Alignments-Sequenz für Sequenz 1. Defaults to ''.
+            al2 (str, optional): Alignment-Sequnez für Sequenz 2. Defaults to ''.
+            al3 (str, optional): Alignment-Sequenz für Sequenz 3. Defaults to ''.
+            alignments (list, optional): _description_. Defaults to [].
+
+        Returns:
+            _type_: _description_
+        """
         if i == 0 and j == 0 and k == 0:
             alignments.append((al1, al2, al3))
         

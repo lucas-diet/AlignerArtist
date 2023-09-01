@@ -43,6 +43,15 @@ class BestCostMatrix():
         return dp
     
     def initRevDP(self, s1, s2):
+        """_summary_
+            Initailaisiert eine Matrix, wobei die letzt Spalte und Zeile werden entsprechend der 
+            Kostenfunktion initialisiert.
+        Args:
+            s1 (str): Sequenz 1
+            s2 (str): Sequenz 2
+        Returns:
+            _type_: Matrix
+        """
         dp = [[0 for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
 
         for i in range(len(s1)-1, -1, -1):
@@ -54,6 +63,15 @@ class BestCostMatrix():
         return dp
     
     def calculateDPRev(self, s1, s2):
+        """_summary_
+            Berechnet die Werte der Matrix, wobei nun die Matrix von (m,n) -> (0,0) gefüllt werden.
+        Args:
+            s1 (str): Sequenz 1
+            s2 (str): Sequenz 1
+
+        Returns:
+            _type_: Gefüllte Matrix
+        """
         dp = self.initRevDP(s1, s2)
 
         for i in range(len(s1)-1, -1, -1):
@@ -65,6 +83,15 @@ class BestCostMatrix():
         return dp
     
     def calculateM(self, dp, dpRev):
+        """_summary_
+            Berechnet die Beste-Kosten-Matrix, indem die DP-Matrix mit der DP-Matrix (Reverse) addiert wird
+        Args:
+            dp (_type_): DP-Matrix der Sequenzen  
+            dpRev (_type_): DP-Matrix der reversen Sequenzen (String+'epsilon')
+
+        Returns:
+            _type_: Best-Kosten-Matrix
+        """
         m = [[0 for _ in range(len(dp[0]))] for _ in range(len(dp))]
         
         for i in range(0,len(dp)):
