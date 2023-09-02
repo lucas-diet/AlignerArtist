@@ -5,6 +5,7 @@ from fasta import Fasta
 from blosum62 import blosum62
 from globalAl import NeedlemannWunsch as NW
 from localAl import SmithWaterman as SW
+from msa import MultipleSequenzalignment as MSA
 
 
 class GuiApp(tk.Tk):
@@ -176,7 +177,14 @@ class GuiApp(tk.Tk):
             self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=40)
             self.output_als.pack(fill="both", expand=True)
             self.output_als.place(x=90,y=340)
-    
+
+            self.output_als_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_als.yview, orient='vertical')
+            self.output_als_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_als.xview, orient='horizontal')
+
+            self.output_als.config(xscrollcommand=self.output_als_scrol_h.set, yscrollcommand=self.output_als_scrol_v.set)
+            self.output_als.config(bg='white', fg='black', state='disabled')
+
+
     def alignInputNW(self):
         
         self.s1 = self.seq1.get().lower()
@@ -335,13 +343,36 @@ class GuiApp(tk.Tk):
 
                 self.seq1.delete(0,tk.END)
                 self.seq2.delete(0,tk.END)
+                self.seq3.delete(0, tk.END)
 
     def alignInputMSA(self):
+        
         self.s1 = self.seq1.get()
         self.s2 = self.seq2.get()
         self.s3 = self.seq3.get()
+
+        self.f1 = Fasta()
+        self.f2 = Fasta()
+        self.f3 = Fasta()
+
+        self.error = tk.Label(self.tool_window)
+        self.error.place(x=90,y=190)
+        self.msg = tk.StringVar()
         
-                     
+        if len(self.s1) == 0 or len(self.s2) == 0 or len(self.s3) == 0:
+            self.msg.set('Please enter a sequence')
+            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+        
+        else:
+            self.msg.set('\t \t ')
+            self.error.config(text=self.msg.get())
+                
+            self.output_als.config(state='normal')
+                
+            msa = MSA()
+
+
+
 
 if __name__ == '__main__':
     app = GuiApp()
