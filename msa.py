@@ -77,7 +77,7 @@ class MultipleSequenzalignment():
 
         return dp
     
-    def calcualteDP(self, type, s1, s2, s3):
+    def calcualteDP(self, s1, s2, s3):
         """_summary_
             Um den Wert für eine Zelle zu berechnen, werden durch 3 for-loops durch die Sequenzen gelaufen und dann 
             für jede Zelle der miniamle Score berechnt.
@@ -90,15 +90,10 @@ class MultipleSequenzalignment():
             _type_: 3D-Matrix
         """
         dp = self.initDP(s1, s2, s3)
-        
         for i in range(1, len(s1)+1):
              for j in range(1, len(s2)+1):
                     for k in range(1, len(s3)+1):
-                        if type == 'nt':
-                            f1 = dp[i-1][j-1][k-1] + self.sumOfPair(s1[i-1], s2[j-1], s3[k-1])
-                        elif type == 'aa':
-                            f1 = dp[i-1][j-1][k-1] + blosum62[s1[i-1]][s2[j-1]][s3[k-1]]
-
+                        f1 = dp[i-1][j-1][k-1] + self.sumOfPair(s1[i-1], s2[j-1], s3[k-1])
                         f2 = dp[i-1][j-1][k] + self.sumOfPair(s1[i-1], s2[j-1], '-')
                         f3 = dp[i-1][j][k-1] + self.sumOfPair(s1[i-1], '-', s3[k-1])
                         f4 = dp[i][j-1][k-1] + self.sumOfPair('-', s2[j-1], s3[k-1])
@@ -164,17 +159,15 @@ class MultipleSequenzalignment():
                 print(s)
             print()
 
-
+'''
 s1 = 'taca'
 s2 = 'ctac'
 s3 = 'gtag'
-t = 'aa'
-
 msa = MultipleSequenzalignment()
 
 print()
 
-dp = msa.calcualteDP(t, s1, s2, s3)
+dp = msa.calcualteDP(s1, s2, s3)
 
 c = msa.getMinimalCosts(dp)
 print(c)
@@ -182,3 +175,4 @@ print(c)
 als = msa.trackbackMSA(dp, s1, s2, s3, len(s1), len(s2), len(s3))
 
 msa.printMSA(als)
+'''
