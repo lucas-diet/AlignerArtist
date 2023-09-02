@@ -181,7 +181,7 @@ class SmithWaterman():
                 print(s)
 
 
-
+'''
 s1 = 'ac'
 t = 'nt'
 h1 = 'h1'
@@ -214,4 +214,4 @@ idx = sw.getMaximalSimilarities(dp)
 als = sw.trackbackLocalAlignment(dp, t, s1, s2)
 
 sw.printAlignmnts(als)
-''''''
+'''
