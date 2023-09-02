@@ -67,22 +67,16 @@ class SmithWaterman():
             _type_: Eine gefüllte Matrix
         """
         dp = self.initDP(s1,s2)
-        if type == 'nt':
-            for i in range(1,len(s1)+1):
-                for j in range(1,len(s2)+1):
+        for i in range(1,len(s1)+1):
+            for j in range(1,len(s2)+1):
+                if type == 'nt':
                     diag = dp[i-1][j-1] + self.similarities(s1[i-1],s2[j-1])
-                    hori = dp[i][j-1] + self.similarities('-',s2[j-1])
-                    vert = dp[i-1][j] + self.similarities(s1[i-1],'-')
-                    dp[i][j] = max(0,diag,hori,vert)
-              
-        elif type == 'aa':
-            for i in range(1,len(s1)+1):
-                for j in range(1,len(s2)+1):
+                elif type == 'aa':
                     diag = dp[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]
-                    hori = dp[i][j-1] + self.similarities('-',s2[j-1])
-                    vert = dp[i-1][j] + self.similarities(s1[i-1],'-')
-                    dp[i][j] = max(0,diag,hori,vert)
- 
+                hori = dp[i][j-1] + self.similarities('-',s2[j-1])
+                vert = dp[i-1][j] + self.similarities(s1[i-1],'-')
+                dp[i][j] = max(0,diag,hori,vert)
+                
         return dp
 
     def getMaximalSimilarities(self, dp_matrix):
@@ -187,8 +181,8 @@ class SmithWaterman():
                 print(s)
 
 
-'''
-s1 = 'agtagt'
+
+s1 = 'ac'
 t = 'nt'
 h1 = 'h1'
 
@@ -199,7 +193,7 @@ f1.setSequence(t,s1)
 f1.printFasta(f1)
 
 
-s2 = 'agt'
+s2 = 'ac'
 h2 = 'h2'
 
 f2 = Fasta()
@@ -217,7 +211,7 @@ for i in range(0,len(dp)):
 idx = sw.getMaximalSimilarities(dp)
 #al = sw.buildAlignments(idx)
 
-als = sw.trackbackLocalAlignment(dp, t,s1,s2)
+als = sw.trackbackLocalAlignment(dp, t, s1, s2)
 
 sw.printAlignmnts(als)
-'''
+''''''
