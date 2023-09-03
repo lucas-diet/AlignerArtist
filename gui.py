@@ -6,6 +6,7 @@ from blosum62 import blosum62
 from globalAl import NeedlemannWunsch as NW
 from localAl import SmithWaterman as SW
 from msa import MultipleSequenzalignment as MSA
+from bcm import BestCostMatrix as BCM
 
 
 class GuiApp(tk.Tk):
@@ -22,7 +23,8 @@ class GuiApp(tk.Tk):
             'Needlemann-Wunsch Algorithm',
             'Smith-Waterman Algorithm',
             'Multiples-Sequence-Alignment',
-            'Best Cost Matrix']
+            'Best Cost Matrix',
+            'Carillo-Lipman-Barrier']
         
         self.tools = tk.StringVar()
         self.tools.set(self.tool_options[0])
@@ -76,26 +78,24 @@ class GuiApp(tk.Tk):
             self.al_button.place(x=10,y=300)
 
             self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=40)
-            self.output_als.pack(fill="both", expand=True)
+            #self.output_als.pack(fill="both", expand=True)
             self.output_als.place(x=90,y=340)
-
+            
             self.output_dp = tk.Text(self.tool_window, wrap='none', height=15, width=40)
-            self.output_dp.pack(fill="both", expand=True)
+            #self.output_dp.pack(fill="both", expand=True)
             self.output_dp.place(x=400,y=340)
-
+            
             self.output_als_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_als.yview, orient='vertical')
             self.output_als_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_als.xview, orient='horizontal')
-
             self.output_als.config(xscrollcommand=self.output_als_scrol_h.set, yscrollcommand=self.output_als_scrol_v.set)
-
+            
             self.output_dp_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_dp.yview, orient='vertical')
             self.output_dp_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_dp.xview, orient='horizontal')
-
             self.output_dp.config(xscrollcommand=self.output_dp_scrol_h.set,yscrollcommand=self.output_dp_scrol_v.set)
             
             self.output_als.config(bg='white', fg='black', state='disabled')
             self.output_dp.config(bg='white', fg='black', state='disabled')
-        
+            
         if self.tools.get() == self.tool_options[1]:
             self.tool_window.title('Smith-Waterman Algorithm')
             self.tool_window.geometry('700x600')
@@ -174,7 +174,7 @@ class GuiApp(tk.Tk):
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputMSA)
             self.al_button.place(x=10,y=300)
 
-            self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=40)
+            self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=80)
             self.output_als.pack(fill="both", expand=True)
             self.output_als.place(x=90,y=340)
 
@@ -184,7 +184,55 @@ class GuiApp(tk.Tk):
             self.output_als.config(xscrollcommand=self.output_als_scrol_h.set, yscrollcommand=self.output_als_scrol_v.set)
             self.output_als.config(bg='white', fg='black', state='disabled')
 
+        if self.tools.get() == self.tool_options[3]:
+            self.tool_window.title('Best-Cost-Matrix')
+            self.tool_window.geometry('700x600')
+            
+            self.sequence_type = tk.OptionMenu(self.tool_window, self.sequence_types, *self.sequence_options)
+            self.sequence_type.config(fg='black')
+            self.sequence_type.place(x=20,y=20)
 
+            self.seq1 = tk.Entry(self.tool_window, width=50)
+            self.seq1.config(bg='white', fg='black')
+            self.seq1.place(x=90,y=80)
+
+            self.seq2 = tk.Entry(self.tool_window,width=50)
+            self.seq2.config(bg='white', fg='black')
+            self.seq2.place(x=90,y=120)
+
+            self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputBCM)
+            self.al_button.place(x=10,y=200)
+
+            self.output_dp = tk.Text(self.tool_window, wrap='none', height=15, width=40)
+            self.output_dp.pack(fill="both", expand=True)
+            self.output_dp.place(x=400,y=170)
+
+            self.output_dprev = tk.Text(self.tool_window, wrap='none', height=15, width=40)
+            self.output_dprev.pack(fill="both", expand=True)
+            self.output_dprev.place(x=90,y=390)
+
+            self.output_dp_m = tk.Text(self.tool_window, wrap='none', height=15, width=40)
+            self.output_dp_m.pack(fill="both", expand=True)
+            self.output_dp_m.place(x=400,y=390)
+
+            self.output_dp_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_dp.yview, orient='vertical')
+            self.output_dprev_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_dprev.yview, orient='vertical')
+            self.output_dp_m_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_dp_m.yview, orient='vertical')
+            
+            self.output_dp_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_dp.xview, orient='horizontal')
+            self.output_dprev_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_dprev.xview, orient='horizontal')
+            self.output_dp_m_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_dp_m.xview, orient='horizontal')
+
+            self.output_dp.config(xscrollcommand=self.output_dp_scrol_h.set, yscrollcommand=self.output_dp_scrol_v)
+            self.output_dprev.config(xscrollcommand=self.output_dprev_scrol_h.set, yscrollcommand=self.output_dprev_scrol_v.set)
+            self.output_dp_m.config(xscrollcommand=self.output_dp_scrol_h.set,yscrollcommand=self.output_dp_m_scrol_v.set)
+            
+            self.output_dp.config(bg='white', fg='black', state='disabled')
+            self.output_dprev.config(bg='white', fg='black', state='disabled')
+            self.output_dp_m.config(bg='white', fg='black', state='disabled')
+
+        if self.tools.get() == self.tool_options[4]:
+            pass
     def alignInputNW(self):
         
         self.s1 = self.seq1.get().lower()
@@ -236,7 +284,7 @@ class GuiApp(tk.Tk):
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
                 #print(self.f1.getSequence())
-                self.msg.set('Illigal sequence')
+                self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
             
             else:
@@ -253,21 +301,21 @@ class GuiApp(tk.Tk):
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
-                        
+
                 formatted_dp = ''
                 for line in dp:
                     formatted_dp += '\t'.join(map(str, line)) +'\n'
-                        
+                     
                 self.output_dp.delete('1.0', 'end')
                 self.output_dp.update()
                 self.output_dp.insert('end', formatted_dp)
                 self.output_dp.insert('end', '\n')
-
+                
                 self.output_als.config(state='disabled')
                 self.output_dp.config(state='disabled')
 
-                self.seq1.delete(0,tk.END)
-                self.seq2.delete(0,tk.END)
+                #self.seq1.delete(0,tk.END)
+                #self.seq2.delete(0,tk.END)
               
     def alignInputSW(self):
         
@@ -312,7 +360,7 @@ class GuiApp(tk.Tk):
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
                 #print(self.f1.getSequence())
-                self.msg.set('Illigal sequence')
+                self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
             
             else:
@@ -343,7 +391,6 @@ class GuiApp(tk.Tk):
 
                 self.seq1.delete(0,tk.END)
                 self.seq2.delete(0,tk.END)
-                self.seq3.delete(0, tk.END)
 
     def alignInputMSA(self):
         
@@ -370,6 +417,138 @@ class GuiApp(tk.Tk):
             self.output_als.config(state='normal')
                 
             msa = MSA()
+
+            if self.sequence_types.get() == self.sequence_options[0]:
+                self.type = 'nt'
+                self.f1.setSequenceType(self.type)
+                self.f2.setSequenceType(self.type)
+                self.f1.setSequence(self.type, self.s1)
+                self.f2.setSequence(self.type, self.s2)
+                    
+            elif self.sequence_types.get() == self.sequence_options[1]:
+                self.type = 'aa'
+                self.f1.setSequenceType(self.type)
+                self.f2.setSequenceType(self.type)
+                self.f1.setSequence(self.type, self.s1)
+                self.f2.setSequence(self.type, self.s2)
+                
+            if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
+                #print(self.f1.getSequence())
+                self.msg.set('Illigal sequence \t \t')
+                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+                
+            else:
+                #print(self.f1.getSequence())
+                dp = msa.calcualteDP(self.s1, self.s2, self.s3)
+                als = msa.trackbackMSA(dp, self.s1, self.s2, self.s3, len(self.s1), len(self.s2), len(self.s3)) 
+                
+                formatted_als = ''
+                self.output_als.delete('1.0',tk.END)
+                for al in als:
+                    formatted_als += '\n'.join(map(str, al)) + '\n\n'
+        
+                als.clear()
+                self.output_als.delete('1.0', tk.END)
+                self.output_als.insert('end', formatted_als.upper())
+                            
+                #formatted_dp = ''
+                #for line in dp:
+                #    formatted_dp += '\t'.join(map(str, line)) +'\n'
+                            
+                #self.output_dp.delete('1.0', 'end')
+                #self.output_dp.update()
+                #self.output_dp.insert('end', formatted_dp)
+                #self.output_dp.insert('end', '\n')
+
+                self.output_als.config(state='disabled')
+                self.output_dp.config(state='disabled')
+
+                self.seq1.delete(0,tk.END)
+                self.seq2.delete(0,tk.END)
+                self.seq3.delete(0, tk.END)
+
+    def alignInputBCM(self):
+        self.s1 = self.seq1.get().lower()
+        self.s2 = self.seq2.get().lower()
+
+        self.type = ''
+
+        self.f1 = Fasta()
+        self.f2 = Fasta()
+
+        self.error = tk.Label(self.tool_window)
+        self.error.place(x=90,y=150)
+        self.msg = tk.StringVar()
+        
+        if len(self.s1) == 0 or len(self.s2) == 0:
+            self.msg.set('Please enter a sequence')
+            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+        
+        else:
+            self.msg.set('\t \t ')
+            self.error.config(text=self.msg.get())
+                
+            self.output_dp.config(state='normal')
+            self.output_dprev.config(state='normal')
+            self.output_dp_m.config(state='normal')
+                
+            bcm = BCM()
+
+            if self.sequence_types.get() == self.sequence_options[0]:
+                self.type = 'nt'
+                self.f1.setSequenceType(self.type)
+                self.f2.setSequenceType(self.type)
+                self.f1.setSequence(self.type, self.s1)
+                self.f2.setSequence(self.type, self.s2)
+                
+            elif self.sequence_types.get() == self.sequence_options[1]:
+                self.type = 'aa'
+                self.f1.setSequenceType(self.type)
+                self.f2.setSequenceType(self.type)
+                self.f1.setSequence(self.type, self.s1)
+                self.f2.setSequence(self.type, self.s2)
+            
+            if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
+                #print(self.f1.getSequence())
+                self.msg.set('Illigal sequence \t \t')
+                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+            
+            else:
+                dp = NW().calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
+                dprev = bcm.calculateDPRev(self.s1, self.s2)
+                m = bcm.calculateM(dp, dprev)
+
+                formatted_dp = ''
+                for line in dp:
+                    formatted_dp += '\t'.join(map(str, line)) + '\n'
+                        
+                self.output_dp.delete('1.0', 'end')
+                self.output_dp.update()
+                self.output_dp.insert('end', formatted_dp)
+                self.output_dp.insert('end', '\n')
+
+                formatted_dprev = ''
+                for line in dprev:
+                    formatted_dprev += '\t'.join(map(str, line)) + '\n'
+
+                self.output_dprev.delete('1.0', 'end')
+                self.output_dprev.update()
+                self.output_dprev.insert('end', formatted_dprev)
+                self.output_dprev.insert('end', '\n')
+
+                formatted_m = ''
+                for line in m:
+                    formatted_m += '\t'.join(map(str, line)) + '\n'
+
+                self.output_dp_m.delete('1.0', 'end')
+                self.output_dp_m.update()
+                self.output_dp_m.insert('end', formatted_m)
+                self.output_dp_m.insert('end', '\n')
+
+                
+                self.output_dp.config(state='normal')
+                self.output_dprev.config(state='normal')
+                self.output_dp_m.config(state='normal')
 
 
 
