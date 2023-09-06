@@ -181,6 +181,48 @@ class App(tk.Tk):
             self.m_button.place(x=270,y=200)
             self.m_button.config(state='disabled')
 
+
+        if self.tools.get() == self.tool_options[4]:
+            self.tool_window.title('Needlemann-Wunsch Algorithm')
+            self.tool_window.geometry('700x300')
+            
+            self.sequence_type = tk.OptionMenu(self.tool_window, self.sequence_types, *self.sequence_options)
+            self.sequence_type.config(fg='black')
+            self.sequence_type.place(x=20,y=20)
+
+            self.seq1 = tk.Entry(self.tool_window, width=50)
+            self.seq1.config(bg='white', fg='black')
+            self.seq1.place(x=90,y=80)
+
+            self.seq2 = tk.Entry(self.tool_window,width=50)
+            self.seq2.config(bg='white', fg='black')
+            self.seq2.place(x=90,y=120)
+
+            self.seq3 = tk.Entry(self.tool_window,width=50)
+            self.seq3.config(bg='white', fg='black')
+            self.seq3.place(x=90,y=160)
+
+            self.al_score = tk.Entry(self.tool_window,width=5)
+            self.al_score.config(bg='white', fg='black')
+            self.al_score.place(x=90,y=200)
+
+            self.al_button = tk.Button(self.tool_window, text='Align', command=None)
+            self.al_button.place(x=10,y=250)
+
+            self.dp_button = tk.Button(self.tool_window, text='Show M', command=None)
+            self.dp_button.place(x=100,y=250)
+            self.dp_button.config(state='disabled')
+            
+            '''
+            self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=80)
+            #self.output_als.pack(fill="both", expand=True)
+            self.output_als.place(x=90,y=340)
+            
+            self.output_als_scrol_v = tk.Scrollbar(self.tool_window, command=self.output_als.yview, orient='vertical')
+            self.output_als_scrol_h = tk.Scrollbar(self.tool_window, command=self.output_als.xview, orient='horizontal')
+            self.output_als.config(xscrollcommand=self.output_als_scrol_h.set, yscrollcommand=self.output_als_scrol_v.set)
+            self.output_als.config(bg='white', fg='black', state='disabled')
+            '''
     def alignInputNW(self):
 
         self.s1 = self.seq1.get().lower()
@@ -451,7 +493,6 @@ class App(tk.Tk):
                 entry.tag_configure("center", justify="center", font=('Arial', '20'), )
                 entry.tag_add("center", "1.0", "end")
 
-        # Update the scroll region of the canvas
         content_frame.update_idletasks()
         canvas.config(scrollregion=canvas.bbox("all"))
 
