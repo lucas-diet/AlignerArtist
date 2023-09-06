@@ -209,6 +209,8 @@ for i in range(0,len(dp)):
     print(dp[i])
 
 idx = sw.getMaximalSimilarities(dp)
+print(idx)
+
 #al = sw.buildAlignments(idx)
 
 als = sw.trackbackLocalAlignment(dp, t, s1, s2)
