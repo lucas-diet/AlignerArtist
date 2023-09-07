@@ -22,7 +22,7 @@ class CarilloLipmanBarrier():
                     print('  ', end='')
             print()
 
-
+'''
 s1 = 'AGATC'
 s2 = 'TACATA'
 s3 = 'GAGAT'
@@ -54,3 +54,5 @@ u23 = alScore - (dp12[-1][-1] + dp13[-1][-1])
 clb.printSmallMatrix(m12, u12)
 clb.printSmallMatrix(m13, u13)
 clb.printSmallMatrix(m23, u23)
+
+'''
