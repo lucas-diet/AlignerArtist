@@ -265,12 +265,10 @@ class App(tk.Tk):
                 self.f2.setSequence(self.type, self.s2)
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
-                #print(self.f1.getSequence())
                 self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
 
             else:
-                #print(self.f1.getSequence())
                 self.dp_button.config(state='active')
 
                 self.dp = nw.calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
@@ -326,12 +324,10 @@ class App(tk.Tk):
                 self.f2.setSequence(self.type, self.s2)
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
-                #print(self.f1.getSequence())
                 self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
 
             else:
-                #print(self.f1.getSequence())
                 self.dp_button.config(state='active')
                 self.dp = self.sw.calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
                 als = self.sw.trackbackLocalAlignment(self.dp, self.f1.getSequenceType(), self.s1, self.s2)
@@ -390,12 +386,10 @@ class App(tk.Tk):
                 self.f3.setSequence(self.type, self.s3)
                 
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR' or self.f3.getSequence() == 'ERROR':
-                #print(self.f1.getSequence())
                 self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
                 
             else:
-                #print(self.f1.getSequence())
                 dp = msa.calcualteDP(self.s1, self.s2, self.s3)
                 als = msa.trackbackMSA(dp, self.s1, self.s2, self.s3, len(self.s1), len(self.s2), len(self.s3)) 
                 
@@ -453,7 +447,6 @@ class App(tk.Tk):
                 self.f2.setSequence(self.type, self.s2)
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
-                #print(self.f1.getSequence())
                 self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
             
@@ -490,8 +483,6 @@ class App(tk.Tk):
             self.msg.set('\t \t ')
             self.error.config(text=self.msg.get())
                 
-            #self.output_als.config(state='normal')
-                
             bcm = BCM()
             clb = CLB()
 
@@ -514,7 +505,6 @@ class App(tk.Tk):
                 self.f3.setSequence(self.type, self.s3)
                 
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR' or self.f3.getSequence() == 'ERROR':
-                #print(self.f1.getSequence())
                 self.msg.set('Illigal sequence \t \t')
                 self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
                 
