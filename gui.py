@@ -1,8 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
 
 from fasta import Fasta
-from blosum62 import blosum62
 from globalAl import NeedlemannWunsch as NW
 from localAl import SmithWaterman as SW
 from msa import MultipleSequenzalignment as MSA
