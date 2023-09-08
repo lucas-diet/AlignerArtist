@@ -1,3 +1,4 @@
+from globalAl import NeedlemannWunsch as NW
 
 class BestCostMatrix():
 
@@ -6,8 +7,15 @@ class BestCostMatrix():
         self.s2 = s2
         self.penalty = {'match':0, 'mismatch':1, 'gap':1}
 
-    def setPenalty(self, ma, mi, ga):
-        self.penalty = {'match':ma, 'mismatch':mi, 'gap':ga}
+    def setPenalty(self, match, mismatch, gap):
+        """_summary_
+            Die Kosten für das Einfügen eines Gaps, Match oder eines Mismatches werden hier festgelegt.
+        Args:
+            match (int): Beschreibt die Kosten bei einem Match
+            mismatch (int): Beschreibt die Kosten bei einem Mismatch
+            gap (int): Beschreibt die Kosten bei einem Gap
+        """
+        self.penalty = {'match':match, 'mismatch':mismatch, 'gap':gap}
 
     def getPenalty(self):
         return self.penalty
@@ -35,11 +43,11 @@ class BestCostMatrix():
     def calcualteDP(self, s1, s2):
         dp = self.initDP(s1,s2)
         for i in range(1,len(s1)+1):
-                for j in range(1,len(s2)+1):
-                    diag = dp[i-1][j-1] + self.costs(s1[i-1],s2[j-1])
-                    hori = dp[i][j-1] + self.costs('-',s2[j-1])
-                    vert = dp[i-1][j] + self.costs(s1[i-1],'-')
-                    dp[i][j] = min(diag,hori,vert)
+            for j in range(1,len(s2)+1):
+                diag = dp[i-1][j-1] + self.costs(s1[i-1],s2[j-1])
+                hori = dp[i][j-1] + self.costs('-',s2[j-1])
+                vert = dp[i-1][j] + self.costs(s1[i-1],'-')
+                dp[i][j] = min(diag,hori,vert)
         return dp
     
     def initRevDP(self, s1, s2):
@@ -112,7 +120,10 @@ s2 = 'TACATA'
 
 bcm = BestCostMatrix()
 
-d = bcm.calcualteDP(s1,s2)
+bcm.setPenalty(10,1,1)
+print(bcm.getPenalty())
+
+d = bcm.calcualteDP(s1, s2)
 drev = bcm.calculateDPRev(s1,s2)
 m = bcm.calculateM(d,drev)
 

@@ -9,7 +9,7 @@ class NeedlemannWunsch():
         self.s2 = s2
         self.penalty = {'match':0, 'mismatch':1, 'gap':1}
 
-    def setPenalty(self, match,mismatch,gap):
+    def setPenalty(self, match, mismatch, gap):
         """_summary_
             Die Kosten für das Einfügen eines Gaps, Match oder eines Mismatches werden hier festgelegt.
         Args:

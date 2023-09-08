@@ -65,6 +65,24 @@ class App(tk.Tk):
             self.seq2.config(bg='white', fg='black')
             self.seq2.place(x=90,y=120)
 
+            self.match_label = tk.Label(self.tool_window, text='Match').place(x=430,y=160)
+            self.match_entry = tk.Entry(self.tool_window,width=3)
+            self.match_entry.place(x=510,y=160)
+            self.match_entry.insert(0,'0')
+            self.match_entry.config(bg='white', fg='black')
+
+            self.mismatch_label = tk.Label(self.tool_window, text='Mismatch').place(x=430,y=200)
+            self.mismatch_entry = tk.Entry(self.tool_window,width=3)
+            self.mismatch_entry.place(x=510,y=200)
+            self.mismatch_entry.insert(1,'1')
+            self.mismatch_entry.config(bg='white', fg='black')
+
+            self.gap_label = tk.Label(self.tool_window, text='Gap').place(x=430,y=240)
+            self.gap_entry = tk.Entry(self.tool_window,width=3)
+            self.gap_entry.place(x=510,y=240)
+            self.gap_entry.insert(1,'1')
+            self.gap_entry.config(bg='white', fg='black')
+
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputNW)
             self.al_button.place(x=10,y=300)
 
@@ -98,6 +116,24 @@ class App(tk.Tk):
             self.seq2 = tk.Entry(self.tool_window,width=50)
             self.seq2.config(bg='white', fg='black')
             self.seq2.place(x=90,y=120)
+
+            self.match_label = tk.Label(self.tool_window, text='Match').place(x=430,y=160)
+            self.match_entry = tk.Entry(self.tool_window,width=3)
+            self.match_entry.place(x=510,y=160)
+            self.match_entry.insert(1,'1')
+            self.match_entry.config(bg='white', fg='black')
+
+            self.mismatch_label = tk.Label(self.tool_window, text='Mismatch').place(x=430,y=200)
+            self.mismatch_entry = tk.Entry(self.tool_window,width=3)
+            self.mismatch_entry.place(x=510,y=200)
+            self.mismatch_entry.insert(-1,'-1')
+            self.mismatch_entry.config(bg='white', fg='black')
+
+            self.gap_label = tk.Label(self.tool_window, text='Gap').place(x=430,y=240)
+            self.gap_entry = tk.Entry(self.tool_window,width=3)
+            self.gap_entry.place(x=510,y=240)
+            self.gap_entry.insert(-1,'-1')
+            self.gap_entry.config(bg='white', fg='black')
 
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputSW)
             self.al_button.place(x=10,y=300)
@@ -167,6 +203,24 @@ class App(tk.Tk):
             self.seq2.config(bg='white', fg='black')
             self.seq2.place(x=90,y=120)
 
+            self.match_label = tk.Label(self.tool_window, text='Match').place(x=430,y=160)
+            self.match_entry = tk.Entry(self.tool_window,width=3)
+            self.match_entry.place(x=510,y=160)
+            self.match_entry.insert(0,'0')
+            self.match_entry.config(bg='white', fg='black')
+
+            self.mismatch_label = tk.Label(self.tool_window, text='Mismatch').place(x=430,y=200)
+            self.mismatch_entry = tk.Entry(self.tool_window,width=3)
+            self.mismatch_entry.place(x=510,y=200)
+            self.mismatch_entry.insert(1,'1')
+            self.mismatch_entry.config(bg='white', fg='black')
+
+            self.gap_label = tk.Label(self.tool_window, text='Gap').place(x=430,y=240)
+            self.gap_entry = tk.Entry(self.tool_window,width=3)
+            self.gap_entry.place(x=510,y=240)
+            self.gap_entry.insert(1,'1')
+            self.gap_entry.config(bg='white', fg='black')
+
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputBCM)
             self.al_button.place(x=10,y=200)
 
@@ -185,7 +239,7 @@ class App(tk.Tk):
 
         if self.tools.get() == self.tool_options[4]:
             self.tool_window.title('Carillo-Lipman-Barrier')
-            self.tool_window.geometry('700x300')
+            self.tool_window.geometry('700x320')
             
             self.sequence_type = tk.OptionMenu(self.tool_window, self.sequence_types, *self.sequence_options)
             self.sequence_type.config(fg='black')
@@ -203,24 +257,42 @@ class App(tk.Tk):
             self.seq3.config(bg='white', fg='black')
             self.seq3.place(x=90,y=160)
 
+            self.match_label = tk.Label(self.tool_window, text='Match').place(x=430,y=200)
+            self.match_entry = tk.Entry(self.tool_window,width=3)
+            self.match_entry.place(x=510,y=200)
+            self.match_entry.insert(0,'0')
+            self.match_entry.config(bg='white', fg='black')
+
+            self.mismatch_label = tk.Label(self.tool_window, text='Mismatch').place(x=430,y=240)
+            self.mismatch_entry = tk.Entry(self.tool_window,width=3)
+            self.mismatch_entry.place(x=510,y=240)
+            self.mismatch_entry.insert(1,'1')
+            self.mismatch_entry.config(bg='white', fg='black')
+
+            self.gap_label = tk.Label(self.tool_window, text='Gap').place(x=430,y=280)
+            self.gap_entry = tk.Entry(self.tool_window,width=3)
+            self.gap_entry.place(x=510,y=280)
+            self.gap_entry.insert(1,'1')
+            self.gap_entry.config(bg='white', fg='black')
+
             self.al_score_entry = tk.Entry(self.tool_window,width=5)
             self.al_score_entry.config(bg='white', fg='black')
             self.al_score_entry.insert(10,'10')
             self.al_score_entry.place(x=90,y=200)
 
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputCLB)
-            self.al_button.place(x=10,y=250)
+            self.al_button.place(x=10,y=280)
 
             self.dp12_button = tk.Button(self.tool_window, text='Show M12', command=self.showM12)
-            self.dp12_button.place(x=100,y=250)
+            self.dp12_button.place(x=100,y=280)
             self.dp12_button.config(state='disabled')
 
             self.dp13_button = tk.Button(self.tool_window, text='Show M13', command=self.showM13)
-            self.dp13_button.place(x=200,y=250)
+            self.dp13_button.place(x=200,y=280)
             self.dp13_button.config(state='disabled')
 
             self.dp23_button = tk.Button(self.tool_window, text='Show M23', command=self.showM23)
-            self.dp23_button.place(x=300,y=250)
+            self.dp23_button.place(x=300,y=280)
             self.dp23_button.config(state='disabled')
     
     
@@ -228,6 +300,10 @@ class App(tk.Tk):
         
         self.s1 = self.seq1.get().lower()
         self.s2 = self.seq2.get().lower()
+
+        self.ma = self.match_entry.get()
+        self.mi = self.mismatch_entry.get()
+        self.ga = self.gap_entry.get()
 
         self.type = ''
 
@@ -249,6 +325,9 @@ class App(tk.Tk):
             self.output_als.config(state='normal')
                 
             nw = NW()
+
+            if int(self.ma) != 0 or int(self.mi) != 1 or int(self.ga) != 1:
+                nw.setPenalty(int(self.ma), int(self.mi), int(self.ga))
 
             if self.sequence_types.get() == self.sequence_options[0]:
                 self.type = 'nt'
@@ -288,6 +367,10 @@ class App(tk.Tk):
         self.s1 = self.seq1.get().lower()
         self.s2 = self.seq2.get().lower()
 
+        self.ma = self.match_entry.get()
+        self.mi = self.mismatch_entry.get()
+        self.ga = self.gap_entry.get()
+
         self.type = ''
 
         self.f1 = Fasta()
@@ -307,7 +390,10 @@ class App(tk.Tk):
                 
             self.output_als.config(state='normal')
                 
-            self.sw = SW()
+            sw = SW()
+
+            if int(self.ma) != 0 or int(self.mi) != 1 or int(self.ga) != 1:
+                sw.setPenalty(int(self.ma), int(self.mi), int(self.ga))
 
             if self.sequence_types.get() == self.sequence_options[0]:
                 self.type = 'nt'
@@ -329,8 +415,8 @@ class App(tk.Tk):
 
             else:
                 self.dp_button.config(state='active')
-                self.dp = self.sw.calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
-                als = self.sw.trackbackLocalAlignment(self.dp, self.f1.getSequenceType(), self.s1, self.s2)
+                self.dp = sw.calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
+                als = sw.trackbackLocalAlignment(self.dp, self.f1.getSequenceType(), self.s1, self.s2)
                 
                 formatted_als = ''
                 self.output_als.delete('1.0',tk.END)
@@ -413,6 +499,10 @@ class App(tk.Tk):
         self.s1 = self.seq1.get().lower()
         self.s2 = self.seq2.get().lower()
 
+        self.ma = self.match_entry.get()
+        self.mi = self.mismatch_entry.get()
+        self.ga = self.gap_entry.get()
+
         self.type = ''
 
         self.f1 = Fasta()
@@ -431,6 +521,9 @@ class App(tk.Tk):
             self.error.config(text=self.msg.get())
 
             bcm = BCM()
+
+            if int(self.ma) != 0 or int(self.mi) != 1 or int(self.ga) != 1:
+                bcm.setPenalty(int(self.ma), int(self.mi), int(self.ga))
 
             if self.sequence_types.get() == self.sequence_options[0]:
                 self.type = 'nt'
@@ -455,7 +548,7 @@ class App(tk.Tk):
                 self.dprev_button.config(state='active')
                 self.m_button.config(state='active')
 
-                self.dp = NW().calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
+                self.dp = bcm.calcualteDP(self.s1, self.s2)
                 self.dprev = bcm.calculateDPRev(self.s1, self.s2)
                 self.m = bcm.calculateM(self.dp, self.dprev)
     
@@ -464,6 +557,10 @@ class App(tk.Tk):
         self.s1 = self.seq1.get().lower()
         self.s2 = self.seq2.get().lower()
         self.s3 = self.seq3.get().lower()
+
+        self.ma = self.match_entry.get()
+        self.mi = self.mismatch_entry.get()
+        self.ga = self.gap_entry.get()
 
         self.al_score = self.al_score_entry.get()
 
@@ -485,6 +582,9 @@ class App(tk.Tk):
                 
             bcm = BCM()
             clb = CLB()
+
+            if int(self.ma) != 0 or int(self.mi) != 1 or int(self.ga) != 1:
+                bcm.setPenalty(int(self.ma), int(self.mi), int(self.ga))
 
             if self.sequence_types.get() == self.sequence_options[0]:
                 self.type = 'nt'
@@ -597,7 +697,7 @@ class App(tk.Tk):
                 entry.insert(tk.END, self.dp[x][y])
                 entry.config(state='disabled', bg='white', fg='black')
 
-                if self.dp[x][y] == self.sw.getMaximalSimilarities(self.dp)[0][0]: 
+                if self.dp[x][y] == SW().getMaximalSimilarities(self.dp)[0][0]: 
                     entry.config(state='disabled', bg='red', fg='black')
                 
                 entry.tag_configure("center", justify="center", font=('Arial', '20'), )
@@ -661,11 +761,11 @@ class App(tk.Tk):
         h_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         canvas.config(xscrollcommand=h_scrollbar.set)
 
-        for x in range(0, len(self.m12)):
-            for y in range(0, len(self.m12[0])):
+        for x in range(0, len(self.m)):
+            for y in range(0, len(self.m[0])):
                 entry = tk.Text(content_frame, width=5, height=2)
                 entry.grid(row=x, column=y)
-                entry.insert(tk.END, self.m12[x][y])
+                entry.insert(tk.END, self.m[x][y])
                 entry.config(state='disabled', bg='white', fg='black')
                 
                 entry.tag_configure("center", justify="center", font=('Arial', '20'), )
@@ -677,7 +777,7 @@ class App(tk.Tk):
 
     def showM12(self):
         self.dp_win = tk.Tk()
-        self.dp_win.title('DP-Matrix')
+        self.dp_win.title('M12-Matrix')
         self.dp_win.geometry('500x500')
 
         canvas = tk.Canvas(self.dp_win)
@@ -715,7 +815,7 @@ class App(tk.Tk):
 
     def showM13(self):
         self.dp_win = tk.Tk()
-        self.dp_win.title('DP-Matrix')
+        self.dp_win.title('M13-Matrix')
         self.dp_win.geometry('500x500')
 
         canvas = tk.Canvas(self.dp_win)
@@ -753,7 +853,7 @@ class App(tk.Tk):
 
     def showM23(self):
         self.dp_win = tk.Tk()
-        self.dp_win.title('DP-Matrix')
+        self.dp_win.title('M23-Matrix')
         self.dp_win.geometry('500x500')
 
         canvas = tk.Canvas(self.dp_win)
