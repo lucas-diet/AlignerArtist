@@ -14,10 +14,6 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         
-        #######################################
-        ###            Start Window         ###
-        #######################################
-        
         self.title('Menu')
         self.geometry('300x200')
         self.label = tk.Label(self, text='Choose a tool')
