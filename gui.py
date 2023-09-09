@@ -369,6 +369,7 @@ class App(tk.Tk):
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
 
+                self.score_label.delete('1.0', tk.END)
                 self.score_label.insert('end', nw.getMinimalCosts(self.dp))
                 self.score_label.tag_configure("center", justify="center", font=('Arial', '20'), )
                 self.score_label.tag_add("center", "1.0", "end")
@@ -440,6 +441,7 @@ class App(tk.Tk):
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
 
+                self.score_label.delete('1.0', tk.END)
                 self.score_label.insert('end', sw.getMaximalSimilarities(self.dp)[0][0])
                 self.score_label.tag_configure("center", justify="center", font=('Arial', '20'), )
                 self.score_label.tag_add("center", "1.0", "end")
@@ -513,6 +515,7 @@ class App(tk.Tk):
                 self.seq2.delete(0,tk.END)
                 self.seq3.delete(0, tk.END)
 
+                self.score_label.delete('1.0', tk.END)
                 self.score_label.insert('end', msa.getMinimalCosts(dp))
                 self.score_label.tag_configure("center", justify="center", font=('Arial', '20'), )
                 self.score_label.tag_add("center", "1.0", "end")
