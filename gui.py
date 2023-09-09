@@ -84,6 +84,10 @@ class App(tk.Tk):
             self.dp_button.place(x=100,y=300)
             self.dp_button.config(state='disabled')
 
+            self.score_label = tk.Text(self.tool_window, width=5, height=2)
+            self.score_label.place(x=510,y=300)
+            self.score_label.config(bg='white', fg='black', state='disabled')
+
             self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=80)
             #self.output_als.pack(fill="both", expand=True)
             self.output_als.place(x=90,y=340)
@@ -136,6 +140,10 @@ class App(tk.Tk):
             self.dp_button.place(x=100,y=300)
             self.dp_button.config(state='disabled')
 
+            self.score_label = tk.Text(self.tool_window, width=5, height=2)
+            self.score_label.place(x=510,y=300)
+            self.score_label.config(bg='white', fg='black', state='disabled')
+
             self.output_als = tk.Text(self.tool_window, wrap='none', height=15, width=80)
             #self.output_als.pack(fill="both", expand=True)
             self.output_als.place(x=90,y=340)
@@ -166,6 +174,10 @@ class App(tk.Tk):
             self.seq3 = tk.Entry(self.tool_window, width=50)
             self.seq3.config(bg='white', fg='black')
             self.seq3.place(x=90,y=160)
+
+            self.score_label = tk.Text(self.tool_window, width=5, height=2)
+            self.score_label.place(x=510,y=300)
+            self.score_label.config(bg='white', fg='black', state='disabled')
 
             self.al_button = tk.Button(self.tool_window, text='Align', command=self.alignInputMSA)
             self.al_button.place(x=10,y=300)
@@ -343,6 +355,7 @@ class App(tk.Tk):
 
             else:
                 self.dp_button.config(state='active')
+                self.score_label.config(state='normal')
 
                 self.dp = nw.calcualteDP(self.f1.getSequenceType(), self.s1, self.s2)
                 als = nw.trackbackGlobalAlignments(self.dp, self.f1.getSequenceType(), self.s1, self.s2, len(self.s1), len(self.s2))
@@ -355,6 +368,11 @@ class App(tk.Tk):
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
+
+                self.score_label.insert('end', nw.getMinimalCosts(self.dp))
+                self.score_label.tag_configure("center", justify="center", font=('Arial', '20'), )
+                self.score_label.tag_add("center", "1.0", "end")
+                self.score_label.config(state='disabled')
 
     def alignInputSW(self):
 
@@ -383,6 +401,7 @@ class App(tk.Tk):
             self.error.config(text=self.msg.get())
                 
             self.output_als.config(state='normal')
+            self.score_label.config(state='normal')
                 
             sw = SW()
 
@@ -421,6 +440,11 @@ class App(tk.Tk):
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
 
+                self.score_label.insert('end', sw.getMaximalSimilarities(self.dp)[0][0])
+                self.score_label.tag_configure("center", justify="center", font=('Arial', '20'), )
+                self.score_label.tag_add("center", "1.0", "end")
+                self.score_label.config(state='disabled')
+
     def alignInputMSA(self):
         
         self.s1 = self.seq1.get().lower()
@@ -444,6 +468,7 @@ class App(tk.Tk):
             self.error.config(text=self.msg.get())
                 
             self.output_als.config(state='normal')
+            self.score_label.config(state='normal')
                 
             msa = MSA()
 
@@ -487,6 +512,11 @@ class App(tk.Tk):
                 self.seq1.delete(0,tk.END)
                 self.seq2.delete(0,tk.END)
                 self.seq3.delete(0, tk.END)
+
+                self.score_label.insert('end', msa.getMinimalCosts(dp))
+                self.score_label.tag_configure("center", justify="center", font=('Arial', '20'), )
+                self.score_label.tag_add("center", "1.0", "end")
+                self.score_label.config(state='disabled')
 
     def alignInputBCM(self):
 
