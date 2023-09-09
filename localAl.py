@@ -133,45 +133,32 @@ class SmithWaterman():
         for indices in maxIndices:
             i,j = indices
             al1, al2 = '',''
-            if type == 'nt':
-                while i > 0 and j > 0 and dp_mat[i][j] > 0:
-                    if dp_mat[i][j] == dp_mat[i-1][j] + self.similarities(s1[i-1], '-'):
+            
+            while i > 0 and j > 0 and dp_mat[i][j] > 0:
+                if type == 'nt':
+                    if dp_mat[i][j] == dp_mat[i-1][j-1] + self.similarities(s1[i-1],s2[j-1]):
+                        al1 = s1[i-1] + al1
+                        al2 = s2[j-1] + al2
+                        i -= 1
+                        j -= 1
+                elif type == 'aa':
+                    if dp_mat[i][j] == dp_mat[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]:
+                        al1 = s1[i-1] + al1
+                        al2 = s2[j-1] + al2
+                        i -= 1
+                        j -= 1
+
+                if dp_mat[i][j] == dp_mat[i][j-1] + self.similarities('-', s2[j-1]):
+                    al1 = '-' + al1
+                    al2 = s2[j-1] + al2
+                    j -= 1
+
+                if dp_mat[i][j] == dp_mat[i-1][j] + self.similarities(s1[i-1], '-'):
                         al1 = s1[i-1] + al1
                         al2 = '-' + al2
                         i -= 1
 
-                    elif dp_mat[i][j] == dp_mat[i][j-1] + self.similarities('-', s2[j-1]):
-                        al1 = '-' + al1
-                        al2 = s2[j-1] + al2
-                        j -= 1
-
-                    elif dp_mat[i][j] == dp_mat[i-1][j-1] + self.similarities(s1[i-1],s2[j-1]):
-                        al1 = s1[i-1] + al1
-                        al2 = s2[j-1] + al2
-                        i -= 1
-                        j -= 1
-
-                alignments.append((al1, al2))
-
-            elif type == 'aa':
-                while i > 0 and j > 0 and dp_mat[i][j] > 0:
-                    if dp_mat[i][j] == dp_mat[i-1][j] + self.similarities(s1[i-1], '-'):
-                        al1 = s1[i-1] + al1
-                        al2 = '-' + al2
-                        i -= 1
-
-                    elif dp_mat[i][j] == dp_mat[i][j-1] + self.similarities('-', s2[j-1]):
-                        al1 = '-' + al1
-                        al2 = s2[j-1] + al2
-                        j -= 1
-
-                    elif dp_mat[i][j] == dp_mat[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]:
-                        al1 = s1[i-1] + al1
-                        al2 = s2[j-1] + al2
-                        i -= 1
-                        j -= 1
-                alignments.append((al1, al2))
-                
+            alignments.append((al1, al2))
         return alignments 
             
     def printAlignmnts(self, als):

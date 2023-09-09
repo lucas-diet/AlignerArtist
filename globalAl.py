@@ -73,22 +73,15 @@ class NeedlemannWunsch():
             _type_: Eine gefüllte Matrix
         """
         dp = self.initDP(s1,s2)
-        if type == 'nt':
-            for i in range(1,len(s1)+1):
-                for j in range(1,len(s2)+1):
+        for i in range(1,len(s1)+1):
+            for j in range(1,len(s2)+1):
+                if type == 'nt':
                     diag = dp[i-1][j-1] + self.costs(s1[i-1],s2[j-1])
-                    hori = dp[i][j-1] + self.costs('-',s2[j-1])
-                    vert = dp[i-1][j] + self.costs(s1[i-1],'-')
-                    dp[i][j] = min(diag,hori,vert)
-
-        elif type == 'aa':
-            for i in range(1,len(s1)+1):
-                for j in range(1,len(s2)+1):
+                elif type == 'aa':
                     diag = dp[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]
-                    hori = dp[i][j-1] + self.costs('-',s2[j-1])
-                    vert = dp[i-1][j] + self.costs(s1[i-1],'-')
-                    dp[i][j] = min(diag,hori,vert)
-            
+                hori = dp[i][j-1] + self.costs('-',s2[j-1])
+                vert = dp[i-1][j] + self.costs(s1[i-1],'-')
+                dp[i][j] = min(diag,hori,vert)
         return dp
     
     def getMinimalCosts(self, dp_mat):
@@ -125,27 +118,21 @@ class NeedlemannWunsch():
         """
         if i == 0 and j == 0:
             alignments.append((al2, al1))
-
-        if type == 'nt':
-            if i > 0 and dp_mat[i][j] == dp_mat[i-1][j] + self.costs(s1[i-1],'-'):
-                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j, s1[i-1]+al1, '-'+al2, alignments)
             
-            if j > 0 and dp_mat[i][j] == dp_mat[i][j-1] + self.costs('-',s2[j-1]):
-                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i, j-1, '-'+al1, s2[j-1]+al2, alignments)
-            
+        if type == 'nt':   
             if i > 0 and j > 0 and dp_mat[i][j] == dp_mat[i-1][j-1] + self.costs(s1[i-1],s2[j-1]):
-                    self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j-1, s1[i-1]+al1, s2[j-1]+al2, alignments)
-        
+                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j-1, s1[i-1]+al1, s2[j-1]+al2, alignments)
         elif type == 'aa':
-            if i > 0 and dp_mat[i][j] == dp_mat[i-1][j] + self.costs(s1[i-1],'-'):
-                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j, s1[i-1]+al1, '-'+al2, alignments)
-            
-            if j > 0 and dp_mat[i][j] == dp_mat[i][j-1] + self.costs('-',s2[j-1]):
-                self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i, j-1, '-' + al1, s2[j-1]+al2, alignments)
-
             if i > 0 and j > 0 and dp_mat[i][j] == dp_mat[i-1][j-1] + blosum62[s1[i-1]][s2[j-1]]:
                 self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j-1, s1[i-1]+al1, s2[j-1]+al2, alignments)
 
+        
+        if i > 0 and dp_mat[i][j] == dp_mat[i-1][j] + self.costs(s1[i-1],'-'):
+            self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i-1, j, s1[i-1]+al1, '-'+al2, alignments)
+            
+        if j > 0 and dp_mat[i][j] == dp_mat[i][j-1] + self.costs('-',s2[j-1]):
+            self.trackbackGlobalAlignments(dp_mat, type, s1, s2, i, j-1, '-'+al1, s2[j-1]+al2, alignments)
+        
         return alignments
     
     def printGlobalAlignments(self,als):
