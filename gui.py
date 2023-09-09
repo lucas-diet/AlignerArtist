@@ -310,7 +310,7 @@ class App(tk.Tk):
 
         if len(self.s1) == 0 or len(self.s2) == 0:
             self.msg.set('Please enter a sequence')
-            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+            self.error.config(text=self.msg.get(), font=('20'))
 
         else:
             self.msg.set('\t \t ')
@@ -339,7 +339,7 @@ class App(tk.Tk):
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
                 self.msg.set('Illigal sequence \t \t')
-                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+                self.error.config(text=self.msg.get(), font=('20'))
 
             else:
                 self.dp_button.config(state='active')
@@ -376,7 +376,7 @@ class App(tk.Tk):
 
         if len(self.s1) == 0 or len(self.s2) == 0:
             self.msg.set('Please enter a sequence')
-            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+            self.error.config(text=self.msg.get(), font=('20'))
 
         else:
             self.msg.set('\t \t ')
@@ -405,7 +405,7 @@ class App(tk.Tk):
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
                 self.msg.set('Illigal sequence \t \t')
-                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+                self.error.config(text=self.msg.get(), font=('20'))
 
             else:
                 self.dp_button.config(state='active')
@@ -437,7 +437,7 @@ class App(tk.Tk):
         
         if len(self.s1) == 0 or len(self.s2) == 0 or len(self.s3) == 0:
             self.msg.set('Please enter a sequence')
-            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+            self.error.config(text=self.msg.get(), font=('20'))
         
         else:
             self.msg.set('\t \t ')
@@ -467,7 +467,7 @@ class App(tk.Tk):
                 
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR' or self.f3.getSequence() == 'ERROR':
                 self.msg.set('Illigal sequence \t \t')
-                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+                self.error.config(text=self.msg.get(), font=('20'))
                 
             else:
                 dp = msa.calcualteDP(self.s1, self.s2, self.s3)
@@ -508,7 +508,7 @@ class App(tk.Tk):
         
         if len(self.s1) == 0 or len(self.s2) == 0:
             self.msg.set('Please enter a sequence')
-            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+            self.error.config(text=self.msg.get(), font=('20'))
         
         else:
             self.msg.set('\t \t ')
@@ -535,7 +535,7 @@ class App(tk.Tk):
             
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR':
                 self.msg.set('Illigal sequence \t \t')
-                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+                self.error.config(text=self.msg.get(), font=('20'))
             
             else:
                 self.dp_button.config(state='active')
@@ -568,7 +568,7 @@ class App(tk.Tk):
         
         if len(self.s1) == 0 or len(self.s2) == 0 or len(self.s3) == 0:
             self.msg.set('Please enter a sequence')
-            self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+            self.error.config(text=self.msg.get(), font=('20'))
         
         else:
             self.msg.set('\t \t ')
@@ -600,7 +600,7 @@ class App(tk.Tk):
                 
             if self.f1.getSequence() == 'ERROR' or self.f2.getSequence() == 'ERROR' or self.f3.getSequence() == 'ERROR':
                 self.msg.set('Illigal sequence \t \t')
-                self.error.config(text=self.msg.get(), fg='yellow', font=('20'))
+                self.error.config(text=self.msg.get(), font=('20'))
                 
             else:
                 self.dp12_button.config(state='active')
