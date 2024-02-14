@@ -368,6 +368,7 @@ class App(tk.Tk):
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
+                self.output_als.config(state='disabled')
 
                 self.score_label.delete('1.0', tk.END)
                 self.score_label.insert('end', nw.getMinimalCosts(self.dp))
@@ -440,6 +441,7 @@ class App(tk.Tk):
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
+                self.output_als.config(state='disabled')
 
                 self.score_label.delete('1.0', tk.END)
                 self.score_label.insert('end', sw.getMaximalSimilarities(self.dp)[0][0])
@@ -508,7 +510,6 @@ class App(tk.Tk):
                 als.clear()
                 self.output_als.delete('1.0', tk.END)
                 self.output_als.insert('end', formatted_als.upper())
-
                 self.output_als.config(state='disabled')
 
                 self.seq1.delete(0,tk.END)
