@@ -514,7 +514,7 @@ class App(tk.Tk):
 
                 self.seq1.delete(0,tk.END)
                 self.seq2.delete(0,tk.END)
-                self.seq3.delete(0, tk.END)
+                self.seq3.delete(0,tk.END)
 
                 self.score_label.delete('1.0', tk.END)
                 self.score_label.insert('end', msa.getMinimalCosts(dp))
