@@ -146,7 +146,7 @@ class MultipleSequenzalignment():
             self.trackbackMSA(dp_mat, s1, s2, s3, i, j-1, k, '-'+al1, s2[j-1]+al2, '-'+al3, alignments)
 
         if k > 0 and dp_mat[i][j][k] == dp_mat[i][j][k-1] + self.sumOfPair('-','-',s3[k-1]):
-            self.trackbackMSA(dp_mat, s1, s2, s3, i, j, k-1, '-'+al1, '-'+al2, s3[j-1]+al3, alignments)
+            self.trackbackMSA(dp_mat, s1, s2, s3, i, j, k-1, '-'+al1, '-'+al2, s3[k-1]+al3, alignments)
 
         if i > 0 and j > 0 and k > 0 and dp_mat[i][j][k] == dp_mat[i-1][j-1][k-1] + self.sumOfPair(s1[i-1],s2[j-1],s3[k-1]):
             self.trackbackMSA(dp_mat,  s1, s2, s3, i-1, j-1, k-1, s1[i-1]+al1, s2[j-1]+al2, s3[k-1]+al3, alignments)
