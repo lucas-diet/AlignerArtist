@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 from fasta import Fasta
 from globalAl import NeedlemannWunsch as NW
@@ -8,15 +9,17 @@ from bcm import BestCostMatrix as BCM
 from clb import CarilloLipmanBarrier as CLB
 
 class App(tk.Tk):
-
+    
     def __init__(self):
         super().__init__()
         
         self.title('Menu')
         self.geometry('300x200')
+        self.set_theme()
+
         self.label = tk.Label(self, text='Choose a tool')
         self.label.pack()
-        
+
         self.tool_options = [
             'Needlemann-Wunsch Algorithm',
             'Smith-Waterman Algorithm',
@@ -33,6 +36,9 @@ class App(tk.Tk):
         self.tool_choice_btn = tk.Button(self, text='Apply', command=self.openToolWindow)
         self.tool_choice_btn.place(x=10,y=150)
 
+    def set_theme(self):
+        style = ttk.Style()
+        style.theme_use('clam')
     
     def openToolWindow(self):
 
