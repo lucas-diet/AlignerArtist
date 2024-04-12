@@ -15,7 +15,7 @@ class App(tk.Tk):
         
         self.title('Menu')
         self.geometry('300x200')
-        
+
         self.label = tk.Label(self, text='Choose a tool')
         self.label.pack()
 
